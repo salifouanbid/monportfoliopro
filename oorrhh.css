@@ -1,0 +1,735 @@
+/* VARIABLES ET RESET */
+:root {
+    --bg: #030712;
+    --card-bg: rgba(255, 255, 255, 0.03);
+    --border: rgba(255, 255, 255, 0.08);
+    --primary: #6366f1;
+    --primary-glow: rgba(99, 102, 241, 0.3);
+    --text-main: #f3f4f6;
+    --text-dim: #9ca3af;
+    --white: #ffffff;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* NAVIGATION */
+header {
+    position: fixed;
+    width: 100%;
+    padding: 20px 5%;
+    background: rgba(3, 7, 18, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.logo span { color: var(--primary); }
+
+.nav-container ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-container a {
+    text-decoration: none;
+    color: var(--text-dim);
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.nav-container a:hover { color: var(--primary); }
+/* STYLE DU BOUTON LINKEDIN */
+.btn-linkedin {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: rgba(10, 102, 194, 0.1); /* Bleu LinkedIn très léger */
+    border: 1px solid rgba(10, 102, 194, 0.3);
+    border-radius: 12px;
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.btn-linkedin img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(1.2); /* Pour que le logo ressorte sur fond sombre */
+}
+
+.btn-linkedin:hover {
+    background: rgba(10, 102, 194, 0.25);
+    border-color: #0a66c2;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(10, 102, 194, 0.3);
+}
+/* STYLE SPÉCIFIQUE POUR LE BOUTON GMAIL */
+.btn-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: rgba(234, 67, 53, 0.1); /* Rouge Gmail translucide */
+    border: 1px solid rgba(234, 67, 53, 0.3);
+    border-radius: 10px;
+    color: #f3f4f6; /* var(--text-main) */
+    text-decoration: none;
+    font-weight: normal;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.btn-email img {
+    width: 24px;
+    height: 24px;
+}
+
+.btn-email:hover {
+    background: rgba(234, 67, 53, 0.2);
+    border-color: #ea4335; /* Couleur officielle Gmail */
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(234, 67, 53, 0.3);
+}
+/* STYLE DU BOUTON GITHUB */
+.btn-github {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: #f3f4f6;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.btn-github img {
+    width: 24px;
+    height: 24px;
+    filter: invert(1); /* Inverse la couleur si l'icône est noire sur fond sombre */
+}
+
+.btn-github:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Si tu veux l'aligner à côté du bouton de téléchargement du CV */
+.cv-download-btn {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+/* ==========================================================================
+   MODIFICATIONS CIBLÉES : À PROPOS & ACADEMIC PATH
+   ========================================================================== */
+
+/* 1. SECTION À PROPOS (LA PARTIE TEXTE DANS .HERO) */
+
+
+/* =============================================================
+   SECTION : À PROPOS (HERO) - VERSION DESIGNER
+   ============================================================= */
+.hero {
+    background: linear-gradient(135deg, rgba(0, 210, 255, 0.05), rgba(255, 255, 255, 0.01));
+    padding: 40px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    position: relative;
+}
+
+.hero h2 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 25px;
+    background: linear-gradient(to right, #ffffff, var(--primary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    line-height: 1.8;
+    border-left: 4px solid var(--primary-color);
+    padding-left: 20px;
+}
+
+/* =============================================================
+   SECTION : ACADEMIC PATH - STYLE TIMELINE FUTURISTE
+   ============================================================= */
+#academicpath {
+    position: relative;
+    padding: 50px 0;
+}
+
+/* La ligne verticale de la Timeline */
+#academicpath::before {
+    content: "";
+    position: absolute;
+    left: 10%;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--primary-color), var(--secondary-color), transparent);
+}
+
+#academicpath .section {
+    position: relative;
+    margin-left: 15%; /* Espace pour la ligne à gauche */
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 20px;
+    margin-bottom: 35px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Le point lumineux sur la ligne */
+#academicpath .section::after {
+    content: "";
+    position: absolute;
+    left: -6.6%; /* Aligné pile sur la ligne verticale */
+    top: 35px;
+    width: 14px;
+    height: 14px;
+    background: var(--bg-dark);
+    border: 3px solid var(--primary-color);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--primary-color);
+}
+
+#academicpath .section:hover {
+    transform: translateX(15px);
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+#academicpath h2 {
+    color: #fff;
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    text-transform: none;
+}
+
+#academicpath ul li {
+    list-style: none;
+    padding: 12px 0;
+    color: var(--text-dim);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#academicpath ul li strong {
+    color: var(--primary-color);
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+/* --- CONFIGURATION DE LA TIMELINE --- */
+.timeline-container {
+    position: relative;
+    padding-left: 40px;
+    margin: 40px 0;
+}
+
+/* La ligne verticale bleue */
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: var(--primary); /* Utilise le bleu de ton root */
+    box-shadow: 0 0 10px var(--primary-glow);
+}
+
+/* Chaque bloc de diplôme */
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+/* Le petit rond sur la ligne */
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    left: -32px; /* Ajusté pour tomber sur la ligne */
+    top: 20px;
+    width: 12px;
+    height: 12px;
+    background: var(--bg);
+    border: 3px solid var(--primary);
+    border-radius: 50%;
+    z-index: 10;
+}
+
+/* Style des cartes dans la timeline */
+.timeline-content {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 20px;
+    border-radius: 15px;
+    transition: 0.3s ease;
+}
+
+.timeline-content:hover {
+    transform: translateX(10px);
+    border-color: var(--primary);
+}
+/* HERO SECTION */
+.hero {
+    display: flex;
+    align-items: center;
+    padding: 150px 10% 100px;
+    min-height: 100vh;
+    gap: 50px;
+}
+
+.hero-content { flex: 1; }
+
+.badge {
+    background: var(--primary-glow);
+    color: var(--primary);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin: 20px 0;
+    line-height: 1.1;
+}
+
+.hero h1 span {
+    background: linear-gradient(90deg, #818cf8, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+.hero-btns { display: flex; gap: 15px; }
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-secondary {
+    border: 1px solid var(--border);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+section[id] {
+    padding: 80px 10%;
+}
+.section-wrapper , .Zone-avis, #academicpath, #project {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px;
+    transition: var(--transition);
+}
+
+
+/* Petit ajout pour le style "20/20" au survol */
+.section-wrapper:hover, 
+.Zone-avis:hover, 
+#academicpath:hover, 
+#project:hover {
+    border-color: var(--primary);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* IMAGE HERO */
+.hero-image { flex: 1; display: flex; justify-content: center; }
+
+.image-wrapper {
+    position: relative;
+    width: 350px;
+    height: 400px;
+    background: var(--primary);
+    border-radius: 30px;
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 30px;
+    filter: grayscale(20%);
+}
+
+.experience-badge {
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    background: #1f2937;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+}
+
+/* SECTION TITLES */
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+}
+
+/* GLASS CARD REUSABLE */
+.glass-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 40px;
+}
+/* La section globale */
+.about-section {
+    padding: 100px 20px;
+    display: flex;
+    justify-content: center;
+}
+/* =============================================================
+   SECTION : À PROPOS (REVISITÉE)
+   ============================================================= */
+
+/* Conteneur principal de la carte */
+.glass-card .about-container {
+    max-width: 1000px; /* Élargi pour l'aperçu CV */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* Grille d'informations personnelles (Nom, Email, etc.) */
+.personal-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    border: 1px solid var(--border);
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.info-item strong {
+    color: var(--primary);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* ZONE CV : Alignement Aperçu + Bouton */
+.cv-section-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(145deg, rgba(99, 102, 241, 0.1), transparent);
+    padding: 25px;
+    border-radius: 20px;
+    border: 1px dashed var(--primary);
+    margin-top: 20px;
+    gap: 30px;
+}
+
+/* L'aperçu du CV (Miniature stylisée) */
+.cv-preview {
+    flex: 0 0 120px;
+    height: 160px;
+    background: white;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.cv-preview::before {
+    content: "CV";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #1f2937;
+    font-weight: 800;
+    font-size: 2rem;
+    opacity: 0.2;
+}
+
+/* Simulation de lignes de texte sur l'aperçu */
+.cv-preview-lines {
+    padding: 15px;
+}
+.cv-preview-lines span {
+    display: block;
+    height: 6px;
+    background: #e5e7eb;
+    margin-bottom: 8px;
+    border-radius: 2px;
+}
+
+.cv-section-wrapper:hover .cv-preview {
+    transform: scale(1.05) rotate(2deg);
+}
+
+/* Bouton de téléchargement */
+.cv-download-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cv-download-btn a {
+    background: var(--primary);
+    color: white;
+    text-align: center;
+    padding: 15px 25px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px var(--primary-glow);
+}
+
+.cv-download-btn a:hover {
+    filter: brightness(1.2);
+    transform: translateY(-2px);
+}
+
+/* Responsive pour mobile */
+@media (max-width: 600px) {
+    .cv-section-wrapper {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* SKILLS GRID */
+.skills-section { padding: 100px 10%; }
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.skill-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 30px;
+    border-radius: 24px;
+    transition: 0.3s;
+}
+
+.skill-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary);
+}
+
+.skill-icon {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    width: 70px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+}
+
+.c-lang { background: #3b82f633; color: #3b82f6; }
+.js-lang { background: #eab30833; color: #eab308; }
+/* Style pour le Pack Office - Couleur Orange */
+.office-lang { 
+    background: rgba(216, 59, 1, 0.2); /* Orange Office avec transparence */
+    color: #d83b01; /* Texte orange vif */
+}
+
+/* Style pour le HTML (Rappel) */
+.html-lang { 
+    background: rgba(239, 68, 68, 0.2); 
+    color: #ef4444; 
+}
+.Python-lang { background: #3776ab33; color: #3776ab; }
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: #1f2937;
+    margin-top: 15px;
+    border-radius: 10px;
+}
+
+.progress { height: 100%; border-radius: 10px; }
+.p-c { width: 80%; background: #3b82f6; }
+.p-js { width: 40%; background: #eab308; }
+.p-html { width: 75%; background: #ef4444; }
+.p-office { width: 70%; background: var(--white); }
+.p-python { width: 10%; background: #3776ab; }
+/* PROJECTS */
+.projects-section { padding: 50px 10%; }
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+.project-img {
+    height: 200px;
+    background: #111827;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+}
+
+.project-info { padding: 25px; }
+
+.tags { display: flex; gap: 10px; margin-top: 15px; }
+
+.tags span {
+    background: #1f2937;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+/* CONTACT */
+.contact-section { padding: 100px 10%; }
+
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 50px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form input, .contact-form textarea {
+    background: #0b1120;
+    border: 1px solid var(--border);
+    padding: 15px;
+    border-radius: 12px;
+    color: white;
+}
+
+.contact-form textarea { height: 120px; resize: none; }
+
+footer {
+    text-align: center;
+    padding: 50px;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+}
+.input-group {
+    font-size: 1.25rem;
+    position: relative;
+    --primary-color: #6366f1;
+}
+.input{
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 2px solid var(--border);
+    padding: 1rem;
+    color: var(--text-main);
+    width: 100%;
+    transition: border-color 0.3s ease;
+
+}
+.input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    border: 1px solid var(--primary-color);
+}
+.input:is(:focus, :valid)  label{
+    transform: translateY(-120%) scale(0.7);
+    background-color: var(--primary-color);
+    padding: inline 0.3em;
+    color:#030712;
+
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .hero { flex-direction: column; text-align: center; }
+    .hero-btns { justify-content: center; }
+    .contact-container { grid-template-columns: 1fr; }
+}
