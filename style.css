@@ -8,6 +8,7 @@
     --text-main: #f3f4f6;
     --text-dim: #9ca3af;
     --white: #ffffff;
+    --background-clip: padding-box;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
@@ -35,6 +36,17 @@ header {
     backdrop-filter: blur(10px);
     z-index: 1000;
     border-bottom: 1px solid var(--border);
+}
+/* Curseur clignotant pour l'effet typewriter */
+#typewriter-title::after, #typewriter-text::after {
+    content: '|';
+    animation: blink 0.7s infinite;
+}
+
+/* Le curseur disparaît une fois l'élément "rempli" (géré visuellement ou optionnellement) */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 .nav-container {
@@ -338,9 +350,13 @@ header {
 }
 
 .hero h1 {
-    font-size: 3.5rem;
-    margin: 20px 0;
-    line-height: 1.1;
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, #ffffff, var(--primary-color));
+    -webkit-background-clip: text;
+    background-clip: text; /* Ajoute cette ligne standard pour calmer VS Code */
+    -webkit-text-fill-color: transparent;
 }
 
 .hero h1 span {
