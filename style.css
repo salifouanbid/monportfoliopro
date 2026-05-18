@@ -1,4 +1,4 @@
-/* VARIABLES ET RESET */
+/* VARIABLES PAR DÉFAUT (MODE SOMBRE) */
 :root {
     --bg: #030712;
     --card-bg: rgba(255, 255, 255, 0.03);
@@ -8,7 +8,41 @@
     --text-main: #f3f4f6;
     --text-dim: #9ca3af;
     --white: #ffffff;
-    --background-clip: padding-box;
+    --header-bg: rgba(3, 7, 18, 0.8);
+    --input-bg: #0b1120;
+}
+
+/* VARIABLES EN MODE CLAIR (Quand la classe .light-theme est active) */
+.light-theme {
+    --bg: #f3f4f6;                  /* Fond clair */
+    --card-bg: rgba(0, 0, 0, 0.03);  /* Cartes claires */
+    --border: rgba(0, 0, 0, 0.08);   /* Bordures sombres et subtiles */
+    --primary: #4f46e5;             /* Un bleu/indigo un peu plus foncé pour le contraste */
+    --primary-glow: rgba(79, 70, 229, 0.15);
+    --text-main: #1f2937;           /* Texte principal sombre */
+    --text-dim: #4b5563;            /* Texte secondaire gris foncé */
+    --white: #000000;
+    --header-bg: rgba(243, 244, 246, 0.8);
+    --input-bg: #ffffff;            /* Champs de formulaire blancs */
+}
+
+/* Petite transition fluide pour éviter que le changement de couleur soit brutal */
+
+/* STYLE DU BOUTON DE CHANGEMENT (À mettre où tu veux dans ton CSS) */
+.theme-toggle-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+.theme-toggle-btn:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 10px var(--primary-glow);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
@@ -25,6 +59,7 @@ body {
     color: var(--text-main);
     line-height: 1.6;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* NAVIGATION */
@@ -32,7 +67,7 @@ header {
     position: fixed;
     width: 100%;
     padding: 20px 5%;
-    background: rgba(3, 7, 18, 0.8);
+    background: var(--input-bg);
     backdrop-filter: blur(10px);
     z-index: 1000;
     border-bottom: 1px solid var(--border);
@@ -113,7 +148,7 @@ header {
     background: rgba(234, 67, 53, 0.1); /* Rouge Gmail translucide */
     border: 1px solid rgba(234, 67, 53, 0.3);
     border-radius: 10px;
-    color: #f3f4f6; /* var(--text-main) */
+    color: var(--text-dim);
     text-decoration: none;
     font-weight: normal;
     transition: all 0.3s ease;
@@ -140,7 +175,7 @@ header {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
-    color: #f3f4f6;
+    color: var(--text-dim);
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
@@ -385,7 +420,7 @@ header {
 
 .btn-secondary {
     border: 1px solid var(--border);
-    color: white;
+    color: var(--text-dim);
     padding: 12px 25px;
     border-radius: 10px;
     text-decoration: none;
@@ -700,7 +735,7 @@ section[id] {
 }
 
 .contact-form input, .contact-form textarea {
-    background: #0b1120;
+    background: var(--input-bg);
     border: 1px solid var(--border);
     padding: 15px;
     border-radius: 12px;

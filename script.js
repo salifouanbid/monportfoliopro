@@ -118,4 +118,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', revealOnScroll);
     revealOnScroll(); 
+    // ==========================================
+    // 5. GESTION DU MODE SOMBRE / CLAIR
+    // ==========================================
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme');
+
+    // Si l'utilisateur a déjà choisi le mode clair auparavant, on l'applique
+    if (currentTheme === 'light') {
+        document.body.classList.add('light-theme');
+        themeToggleBtn.textContent = "🌙 Mode Sombre";
+    }
+
+    // Écouteur de clic sur le bouton
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            // On bascule la classe light-theme sur le body
+            document.body.classList.toggle('light-theme');
+            
+            // On vérifie si le mode clair est actif pour changer le texte du bouton et sauvegarder
+            if (document.body.classList.contains('light-theme')) {
+                themeToggleBtn.textContent = "🌙 Mode Sombre";
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeToggleBtn.textContent = "☀️ Mode Clair";
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    }
 });
