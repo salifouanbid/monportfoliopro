@@ -527,3 +527,13 @@ footer {
     .hero-btns { justify-content: center; }
     .contact-container { grid-template-columns: 1fr; }
 }
+/*ancien photo du genre la photo sans les bages html css et java une photo simple
+.experience-badge {
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    background: #1f2937;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+}*/

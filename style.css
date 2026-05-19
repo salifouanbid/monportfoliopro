@@ -466,15 +466,7 @@ section[id] {
     filter: grayscale(20%);
 }
 
-.experience-badge {
-    position: absolute;
-    bottom: -20px;
-    left: -20px;
-    background: #1f2937;
-    padding: 20px;
-    border-radius: 15px;
-    border: 1px solid var(--border);
-}
+
 
 /* SECTION TITLES */
 .section-title {
@@ -669,9 +661,6 @@ section[id] {
 }
 .Python-lang { background: #3776ab33; color: #3776ab; }
 
-
-
-
 /* PROJECTS */
 .projects-section { padding: 50px 10%; }
 
@@ -773,3 +762,48 @@ footer {
     .hero-btns { justify-content: center; }
     .contact-container { grid-template-columns: 1fr; }
 }
+/* 3. Style commun pour toutes les icônes */
+.icon {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: #1f1d2c; /* Fond sombre */
+  border-radius: 10px;       /* Coins légèrement arrondis */
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 10; /* S'assure que l'icône passe au-dessus de l'image */
+}
+
+/* 4. Positionnement précis de chaque icône (Effet "à cheval" sur la bordure) */
+.icon-top-left {
+  top: 15%;
+  left: -20px; /* Valeur négative pour faire dépasser l'icône à gauche */
+}
+
+.icon-top-right {
+  top: -20px;  /* Valeur négative pour faire dépasser l'icône en haut */
+  right: 10%;
+}
+
+.icon-bottom-right {
+  bottom: 20%;
+  right: -20px; /* Valeur négative pour faire dépasser l'icône à droite */
+}
+
+.icon-bottom-left {
+  bottom: -20px; /* Valeur négative pour faire dépasser l'icône en bas */
+  left: 15%;
+}/* 1. Le conteneur parent (très important pour servir de repère) */
+.experience-badge{
+  position: relative;
+  width: 300px;  /* Ajustez la largeur selon vos besoins */
+  height: 350px; /* Ajustez la hauteur selon vos besoins */
+  display: inline-block;
+}
+
