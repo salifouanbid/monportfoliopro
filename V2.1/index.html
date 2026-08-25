@@ -10,32 +10,27 @@
     <header>
         <nav class="nav-container">
             <div class="logo">ANBID<span>.</span></div>
-            <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu">
-                <span></span><span></span><span></span>
-            </button>
-            <ul id="nav-links">
-                <li><a href="#home" data-i18n="nav_accueil">Accueil</a></li>
-                <li><a href="#academic" data-i18n="nav_parcours">Parcours</a></li>
-                <li><a href="#skills" data-i18n="nav_competences">Compétences</a></li>
-                <li><a href="#projects" data-i18n="nav_projets">Projets</a></li>
-                <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+            <ul>
+                <li><a href="#home">Accueil</a></li>
+                <li><a href="#academic">Parcours</a></li>
+                <li><a href="#skills">Compétences</a></li>
+                <li><a href="#projects">Projets</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
-            <div class="nav-actions">
-                <button id="lang-toggle" class="theme-toggle-btn" title="Changer la langue">🌐 FR</button>
-                <button id="theme-toggle" class="theme-toggle-btn">🌤️ Mode clair</button>
-            </div>
+            <button id="theme-toggle" class="theme-toggle-btn" >🌤️ Mode clair</button>
         </nav>
+        
     </header>
 
     <main>
         <section id="home" class="hero">
             <div class="hero-content">
-                <span class="badge" data-i18n="hero_badge">Étudiant en CPGE</span>
+                <span class="badge">Étudiant en CPGE</span>
                 <h1> <span id="typewriter-title"></span></h1>
                 <p id="typewriter-text"></p>
                 <div class="hero-btns">
-                    <a href="#projects" class="btn-primary" data-i18n="hero_btn_projets">Voir mes projets</a>
-                    <a href="#contact" class="btn-secondary" data-i18n="hero_btn_contact">Me contacter</a>
+                    <a href="#projects" class="btn-primary">Voir mes projets</a>
+                    <a href="#contact" class="btn-secondary">Me contacter</a>
                     <a href="https://www.linkedin.com/in/anbid-salifou-656780379/" target="_blank" rel="noopener noreferrer" class="btn-linkedin">
     <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn">
 </a>
@@ -53,7 +48,7 @@
                 <div class="image-wrapper">
                     <img src="matof.jpg" alt="Ola Anbid">
                     
-                        <div class="icon icon-top-left">JS</div>
+                        <div class=" icon icon-top-left">JS</div>
                         <div class="icon icon-top-right">C</div>
                         <div class="icon icon-bottom-left">Python</div>  
                         <div class="icon icon-bottom-right">HTML</div>
@@ -62,16 +57,7 @@
             </div>
         </section>
         <section id="academic" class="academic-section">
-                <h2 class="section-title" data-i18n="parcours_titre">Mon parcours</h2>
-
-                <div class="achievement-highlight">
-                    <div class="achievement-icon">🎓</div>
-                    <div class="achievement-text">
-                        <h3 data-i18n="achievement_titre">1ère année de CPGE réussie sans rattrapage</h3>
-                        <p data-i18n="achievement_desc">Moyenne générale de <strong>14,51/20</strong> — Rang : <em>(à ajouter)</em></p>
-                    </div>
-                </div>
-
+                <h2 class="section-title">Mon parcours</h2>
                        <div class="timeline-container"> 
                         <div class="timeline-item">
                             <div class="timeline-content">
@@ -113,6 +99,7 @@
                             </div>
                         </div>
                 </div>
+            </div>
             
                 <h4 class="section-title">Engagements</h4>
                 <div class="timeline-container">
@@ -142,6 +129,7 @@
                     </div>
                 </div>
             </section>
+        </section>
         
 
         <section id="about" class="about-section">
@@ -168,7 +156,7 @@
             </div>
             <div class="cv-download-btn">
                 <p style="font-size: 0.9rem; color: var(--text-dim);">Mon parcours détaillé est disponible ici :</p>
-                <a href="CVfinal.pdf" download>
+                <a href="CVfinal2.1.pdf" download>
                     📥 Télécharger mon CV (PDF)
                 </a>
             </div>
@@ -176,7 +164,7 @@
     </div>
 </section>
 <section id="skills" class="skills-section">
-    <h2 class="section-title" data-i18n="competences_titre">Mes Compétences</h2>
+    <h2 class="section-title">Mes Compétences</h2>
         <div class="skills-grid">
     <div class="skill-card">
         <div class="skill-icon c-lang">
@@ -240,10 +228,11 @@
             <p>Collaboration active sur des projets communs.</p>
         </div>
         </div>
+            </div>
         </section>
 
         <section id="projects" class="projects-section">
-            <h2 class="section-title" data-i18n="projets_titre">Mes Projets</h2>
+            <h2 class="section-title">Mes Projets</h2>
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-img">Système de Recommandation</div>
@@ -261,38 +250,6 @@
                         <div class="tags"><span>HTML</span><span>CSS</span></div>
                     </div>
                 </div>
-
-                <!-- Nouveaux projets -->
-                <div class="project-card">
-                    <div class="project-img">🤖 Agent IA</div>
-                    <div class="project-info">
-                        <h3>Tuteur IA de Mathématiques & Code</h3>
-                        <p>Assistant local (Ollama + RAG) pour aider aux exercices, avec historique de conversation et analyse d'images/documents.</p>
-                        <div class="tags"><span>Python</span><span>Flask</span><span>LangChain</span></div>
-                        <a href="#" class="project-link">🔗 Voir le dépôt GitHub</a>
-                        <!-- Remplace le href="#" ci-dessus par le vrai lien de ton dépôt -->
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img">🐍 Snake Game</div>
-                    <div class="project-info">
-                        <h3>Jeu Snake</h3>
-                        <p>Recréation du jeu classique du serpent, logique de collision et score en temps réel.</p>
-                        <div class="tags"><span>JavaScript</span><span>HTML</span><span>CSS</span></div>
-                        <a href="#" class="project-link">🔗 Voir le dépôt GitHub</a>
-                        <!-- Remplace le href="#" ci-dessus par le vrai lien de ton dépôt -->
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-img">🏫 Site Collège</div>
-                    <div class="project-info">
-                        <h3>Site du Collège Jean Piaget</h3>
-                        <p>Site complet développé en collaboration avec un ami pour l'établissement.</p>
-                        <div class="tags"><span>HTML</span><span>CSS</span><span>Collaboration</span></div>
-                        <a href="#" class="project-link">🔗 Voir le dépôt GitHub</a>
-                        <!-- Remplace le href="#" ci-dessus par le vrai lien de ton dépôt -->
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -304,7 +261,6 @@
                     <ul class="contact-list">
                         <li>📍 Bénin</li>
                         <li>📞 +229 0155873800</li>
-                        <li> <a href="mailto:salifouanbid@gmail.com" >salifouanbid@gmail.com</a></li>
                     </ul>
                 </div>
                 <form class="contact-form">
@@ -320,26 +276,6 @@
     <footer>
         <p>© 2026 SOULE SALIFOU Anbid | Fait avec passion</p>
     </footer>
-    <!-- Widget de chat hors ligne (aucune connexion requise, tourne 100% dans le navigateur) -->
-    <button id="chat-toggle-btn" class="chat-toggle-btn" title="Poser une question">💬</button>
-
-    <div id="chat-widget" class="chat-widget">
-        <div class="chat-widget-header">
-            <span data-i18n="chat_titre">💬 Une question sur mon profil ?</span>
-            <button id="chat-close-btn" class="chat-close-btn">✕</button>
-        </div>
-        <div id="chat-messages" class="chat-messages">
-            <div class="chat-msg chat-msg-bot" data-i18n="chat_bienvenue">
-                Salut ! Je peux répondre à quelques questions sur le parcours, les compétences ou les projets d'Anbid.
-            </div>
-        </div>
-        <div id="chat-suggestions" class="chat-suggestions"></div>
-        <div class="chat-input-row">
-            <input type="text" id="chat-input" data-i18n-placeholder="chat_placeholder" placeholder="Pose ta question...">
-            <button id="chat-send-btn">➤</button>
-        </div>
-    </div>
-
     <script src="script.js"></script>
 </body>
 </html>
