@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 fr: "Tu peux télécharger le CV complet d'Anbid dans la section 'À propos', juste sous ses informations personnelles.",
                 en: "You can download Anbid's full CV in the 'About' section, right under his personal information."
             }
-        }
+        },
          {
             motsCles: ["nom","prenom","age"],
             reponse: {
