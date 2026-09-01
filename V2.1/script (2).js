@@ -82,16 +82,13 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
-            const langueActuelleFormulaire = localStorage.getItem('langue') || 'fr';
             
-            submitBtn.textContent = langueActuelleFormulaire === 'en' ? 'Sending...' : 'Envoi en cours...';
+            submitBtn.textContent = 'Envoi en cours...';
             submitBtn.style.opacity = '0.7';
             submitBtn.disabled = true;
             
             setTimeout(() => {
-                alert(langueActuelleFormulaire === 'en'
-                    ? 'Thank you! Your message was sent successfully. 🚀'
-                    : 'Merci ! Votre message a été envoyé avec succès. 🚀');
+                alert('Merci ! Votre message a été envoyé avec succès. 🚀');
                 contactForm.reset();
                 submitBtn.textContent = originalText;
                 submitBtn.style.opacity = '1';
@@ -184,72 +181,15 @@ document.addEventListener('DOMContentLoaded', () => {
         fr: {
             nav_accueil: "Accueil", nav_parcours: "Parcours", nav_competences: "Compétences",
             nav_projets: "Projets", nav_contact: "Contact",
-            changer_langue: "Changer la langue",
             hero_badge: "Étudiant en CPGE",
             hero_btn_projets: "Voir mes projets", hero_btn_contact: "Me contacter",
             hero_title: "Exploration de mon univers numérique",
             hero_text: "Développeur junior passionné par le code propre et l'innovation. Actuellement en plein perfectionnement des technologies web, ce portfolio est mon laboratoire.",
-
             parcours_titre: "Mon parcours",
             achievement_titre: "1ère année de CPGE réussie sans rattrapage",
-            achievement_desc: "Moyenne générale de <strong>14,51/20</strong> — Rang : <em>(à ajouter)</em>",
-            timeline_bourse: "Lauréat de la bourse d'excellence du baccalauréat au Bénin.",
-            timeline_bac: "Mention Très Bien au Baccalauréat béninois, avec une moyenne de 15 en classe de terminale indépendamment des examens nationaux et une 3e place à l'appui.",
-            timeline_cpge_desc: "<p>Actuellement en classe préparatoire aux grandes écoles (CPGE),</p><p>je me spécialise en mathématiques et informatique.</p>",
-
-            antecedents_titre: "Antécédents académiques",
-            timeline_1ere: "Moyenne en 1ère C : 14,73",
-            timeline_2nde: "Moyenne en Seconde C : 15,89 avec une deuxième place, témoignant de la rigueur, de la discipline et de l'excellence.",
-            timeline_bepc: "Moyenne de 16,38 au BEPC béninois.",
-
-            engagements_titre: "Engagements",
-            engagement_sport: "Engagement sportif : membre actif du club de football de l'Institut de Mathématiques et de Sciences Physiques (IMSP).",
-            engagement_sci: "Engagement scientifique : membre actif du club d'intelligence artificielle de l'IMSP.",
-
-            langues_titre: "Langues",
-            langue_fr: "Français : niveau intermédiaire",
-            langue_en: "Anglais : niveau B1",
-
-            about_titre: "À propos de moi",
-            about_texte: "Lauréat de la bourse d'excellence au Bénin, je cultive la rigueur et la discipline. Entre le football et l'intelligence artificielle à l'IMSP, je forge mon profil technique au quotidien.",
-            info_nom: "<strong>Nom</strong> SOULE SALIFOU Ola Anbid",
-            info_email: "<strong>Email</strong> salifouanbid@gmail.com",
-            info_langues: "<strong>Langues</strong> Français, Anglais (B1)",
-            info_age: "<strong>Âge</strong> 17 ans",
-            info_lieu: "<strong>Localisation</strong> Bénin",
-            cv_intro: "Mon parcours détaillé est disponible ici :",
-            cv_bouton: "📥 Télécharger mon CV (PDF)",
-
+            achievement_desc_html: "Moyenne générale de <strong>14,51/20</strong> — Rang : <em>(à ajouter)</em>",
             competences_titre: "Mes Compétences",
-            skill_c_titre: "Langage C", skill_c_desc: "Niveau Intermédiaire",
-            skill_js_titre: "JavaScript", skill_js_desc: "Débutant / Intermédiaire",
-            skill_py_titre: "Python", skill_py_desc: "Framework Django / Débutant",
-            skill_html_titre: "Web Design", skill_html_desc: "HTML &amp; CSS moderne",
-            skill_office_titre: "Pack Office", skill_office_desc: "Utilisation avancée",
-            skill_temps_titre: "Gestion du temps", skill_temps_desc: "Organisation efficace et respect des deadlines.",
-            skill_oral_titre: "Art oratoire", skill_oral_desc: "Prise de parole en public et communication claire.",
-            skill_equipe_titre: "Travail d'équipe", skill_equipe_desc: "Collaboration active sur des projets communs.",
-
             projets_titre: "Mes Projets",
-            projet_recommandation_titre: "IA & Algorithmique", projet_recommandation_desc: "Analyse de données et prédictions.",
-            projet_webportfolio_titre: "UI / UX Design", projet_webportfolio_desc: "Interface moderne en Glassmorphism.",
-            projet_agent_titre: "Tuteur IA de Mathématiques & Code", projet_agent_desc: "Assistant local (Ollama + RAG) pour aider aux exercices, avec historique de conversation et analyse d'images/documents.",
-            projet_snake_titre: "Jeu Snake", projet_snake_desc: "Recréation du jeu classique du serpent, logique de collision et score en temps réel.",
-            projet_college_titre: "Site du Collège Jean Piaget", projet_college_desc: "Site complet développé en collaboration avec un ami pour l'établissement.",
-            projet_lien_github: "🔗 Voir le dépôt GitHub",
-
-            contact_titre: "Contactez-moi",
-            contact_texte: "Une suggestion ou un projet ? Parlons-en.",
-            contact_pays: "📍 Bénin",
-            contact_tel: "📞 +229 0155873800",
-            form_nom: "Nom complet",
-            form_email: "Votre Email",
-            form_message: "Votre message...",
-            form_envoyer: "Envoyer le message",
-            form_envoi_cours: "Envoi en cours...",
-
-            footer_texte: "© 2026 SOULE SALIFOU Anbid | Fait avec passion",
-
             chat_titre: "💬 Une question sur mon profil ?",
             chat_bienvenue: "Salut ! Je peux répondre à quelques questions sur le parcours, les compétences ou les projets d'Anbid.",
             chat_placeholder: "Pose ta question...",
@@ -258,72 +198,15 @@ document.addEventListener('DOMContentLoaded', () => {
         en: {
             nav_accueil: "Home", nav_parcours: "Journey", nav_competences: "Skills",
             nav_projets: "Projects", nav_contact: "Contact",
-            changer_langue: "Change language",
             hero_badge: "CPGE Student",
             hero_btn_projets: "View my projects", hero_btn_contact: "Contact me",
             hero_title: "Exploring my digital universe",
             hero_text: "Junior developer passionate about clean code and innovation. Currently sharpening my web development skills, this portfolio is my lab.",
-
             parcours_titre: "My Journey",
             achievement_titre: "Passed 1st year of CPGE with no resit exams",
-            achievement_desc: "Overall average of <strong>14.51/20</strong> — Rank: <em>(to be added)</em>",
-            timeline_bourse: "Awarded the Baccalauréat excellence scholarship in Benin.",
-            timeline_bac: "Graduated with High Honors at the Beninese Baccalauréat, with a 15/20 average in final year independently of national exams, and ranked 3rd.",
-            timeline_cpge_desc: "<p>Currently in a preparatory class for top engineering schools (CPGE),</p><p>specializing in mathematics and computer science.</p>",
-
-            antecedents_titre: "Academic Background",
-            timeline_1ere: "11th grade average: 14.73/20",
-            timeline_2nde: "10th grade average: 15.89/20, ranked 2nd — a reflection of rigor, discipline and excellence.",
-            timeline_bepc: "16.38/20 average at the Beninese BEPC exam.",
-
-            engagements_titre: "Involvements",
-            engagement_sport: "Sports involvement: active member of the football club at the Institute of Mathematics and Physical Sciences (IMSP).",
-            engagement_sci: "Scientific involvement: active member of the IMSP AI club.",
-
-            langues_titre: "Languages",
-            langue_fr: "French: intermediate level",
-            langue_en: "English: B1 level",
-
-            about_titre: "About Me",
-            about_texte: "Winner of the excellence scholarship in Benin, I cultivate rigor and discipline. Between football and AI at IMSP, I sharpen my technical profile every day.",
-            info_nom: "<strong>Name</strong> SOULE SALIFOU Ola Anbid",
-            info_email: "<strong>Email</strong> salifouanbid@gmail.com",
-            info_langues: "<strong>Languages</strong> French, English (B1)",
-            info_age: "<strong>Age</strong> 17",
-            info_lieu: "<strong>Location</strong> Benin",
-            cv_intro: "My detailed background is available here:",
-            cv_bouton: "📥 Download my CV (PDF)",
-
+            achievement_desc_html: "Overall average of <strong>14.51/20</strong> — Rank: <em>(to be added)</em>",
             competences_titre: "My Skills",
-            skill_c_titre: "C Language", skill_c_desc: "Intermediate level",
-            skill_js_titre: "JavaScript", skill_js_desc: "Beginner / Intermediate",
-            skill_py_titre: "Python", skill_py_desc: "Django Framework / Beginner",
-            skill_html_titre: "Web Design", skill_html_desc: "Modern HTML &amp; CSS",
-            skill_office_titre: "Office Suite", skill_office_desc: "Advanced use",
-            skill_temps_titre: "Time Management", skill_temps_desc: "Efficient organization and deadline compliance.",
-            skill_oral_titre: "Public Speaking", skill_oral_desc: "Public speaking and clear communication.",
-            skill_equipe_titre: "Teamwork", skill_equipe_desc: "Active collaboration on shared projects.",
-
             projets_titre: "My Projects",
-            projet_recommandation_titre: "AI & Algorithms", projet_recommandation_desc: "Data analysis and predictions.",
-            projet_webportfolio_titre: "UI / UX Design", projet_webportfolio_desc: "Modern Glassmorphism interface.",
-            projet_agent_titre: "AI Tutor for Math & Code", projet_agent_desc: "Local assistant (Ollama + RAG) to help with exercises, with conversation history and image/document analysis.",
-            projet_snake_titre: "Snake Game", projet_snake_desc: "Recreation of the classic Snake game, with collision logic and real-time scoring.",
-            projet_college_titre: "Collège Jean Piaget Website", projet_college_desc: "Full website built in collaboration with a friend for the school.",
-            projet_lien_github: "🔗 View GitHub repo",
-
-            contact_titre: "Get in Touch",
-            contact_texte: "A suggestion or a project? Let's talk.",
-            contact_pays: "📍 Benin",
-            contact_tel: "📞 +229 0155873800",
-            form_nom: "Full name",
-            form_email: "Your email",
-            form_message: "Your message...",
-            form_envoyer: "Send message",
-            form_envoi_cours: "Sending...",
-
-            footer_texte: "© 2026 SOULE SALIFOU Anbid | Made with passion",
-
             chat_titre: "💬 A question about my profile?",
             chat_bienvenue: "Hi! I can answer a few questions about Anbid's journey, skills or projects.",
             chat_placeholder: "Ask your question...",
@@ -341,19 +224,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const cle = el.getAttribute('data-i18n');
-            const traduction = TRADUCTIONS[langue][cle];
-            if (traduction === undefined) return;
-            if (traduction.includes('<')) {
-                el.innerHTML = traduction;
-            } else {
-                el.textContent = traduction;
+            if (TRADUCTIONS[langue][cle] !== undefined) {
+                el.textContent = TRADUCTIONS[langue][cle];
             }
         });
 
-        document.querySelectorAll('[data-i18n-title]').forEach(el => {
-            const cle = el.getAttribute('data-i18n-title');
-            if (TRADUCTIONS[langue][cle] !== undefined) el.title = TRADUCTIONS[langue][cle];
-        });
+        const achievementDesc = document.querySelector('[data-i18n="achievement_desc"]');
+        if (achievementDesc) achievementDesc.innerHTML = TRADUCTIONS[langue].achievement_desc_html;
 
         document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
             const cle = el.getAttribute('data-i18n-placeholder');
