@@ -75,45 +75,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. GESTION DU FORMULAIRE DE CONTACT
     // ==========================================
     const contactForm = document.querySelector('.contact-form');
-
+    
     if (contactForm) {
-        contactForm.addEventListener('submit', function (e) {
+        contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-
+            
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
             const langueActuelleFormulaire = localStorage.getItem('langue') || 'fr';
-
+            
             submitBtn.textContent = langueActuelleFormulaire === 'en' ? 'Sending...' : 'Envoi en cours...';
             submitBtn.style.opacity = '0.7';
             submitBtn.disabled = true;
-
-            fetch(this.action, {
-                method: 'POST',
-                body: new FormData(this),
-                headers: { 'Accept': 'application/json' }
-            })
-                .then((response) => {
-                    if (response.ok) {
-                        alert(langueActuelleFormulaire === 'en'
-                            ? 'Thank you! Your message was sent successfully. 🚀'
-                            : 'Merci ! Votre message a été envoyé avec succès. 🚀');
-                        contactForm.reset();
-                    } else {
-                        throw new Error('Formspree a refusé la requête');
-                    }
-                })
-                .catch(() => {
-                    alert(langueActuelleFormulaire === 'en'
-                        ? "Sorry, the message couldn't be sent. Please email me directly instead."
-                        : "Désolé, le message n'a pas pu être envoyé. Écris-moi directement par email en attendant."
-                    );
-                })
-                .finally(() => {
-                    submitBtn.textContent = originalText;
-                    submitBtn.style.opacity = '1';
-                    submitBtn.disabled = false;
-                });
+            
+            setTimeout(() => {
+                alert(langueActuelleFormulaire === 'en'
+                    ? 'Thank you! Your message was sent successfully. 🚀'
+                    : 'Merci ! Votre message a été envoyé avec succès. 🚀');
+                contactForm.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.style.opacity = '1';
+                submitBtn.disabled = false;
+            }, 2000);
         });
     }
 
@@ -530,36 +513,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     rafraichirSuggestionsChat();
     if (langueActuelle !== 'fr') appliquerLangue(langueActuelle);
-
-    // ==========================================
-    // 8. BOUTON "HAUT DE PAGE"
-    // ==========================================
-    const backToTopBtn = document.getElementById('backToTop');
-    if (backToTopBtn) {
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        const toggleBackToTop = () => {
-            backToTopBtn.classList.toggle('visible', window.scrollY > 400);
-        };
-        toggleBackToTop();
-        window.addEventListener('scroll', toggleBackToTop);
-    }
 });
 
-/* Bouton flottant WhatsApp — coordonnées personnelles d'Anbid */
+/*Pour le message remplacer par un bouton pour aller vers whatsapp*/
 const SITE_SHARED = {
   contact: {
-    whatsapp: "2290155873800"
-  }
+    whatsapp: "0155873800",
+    formspreeEndpoint: "https://formspree.io/f/xeajrdop"
+  },
+  locationsCoords: [
+    { lat: 6.4485, lng: 2.3436 },
+    { lat: 6.4480, lng: 2.3440 },
+    { lat: 6.4650, lng: 2.3250 },
+    { lat: 6.4750, lng: 2.3150 }
+  ]
 };
  setTimeout(() => {
-    const langueWa = localStorage.getItem('langue') || 'fr';
     const waNumber = (SITE_SHARED.contact.whatsapp || "").replace(/[^0-9+]/g, '');
-    const waMessage = encodeURIComponent(langueWa === 'en'
-      ? "Hello Anbid, I saw your portfolio and would like to get in touch."
-      : "Bonjour Anbid, j'ai vu ton portfolio et j'aimerais échanger avec toi.");
+    const waMessage = encodeURIComponent(currentLang === 'en'
+      ? "Hello, I would like some information about Collège Jean Piaget 1."
+      : "Bonjour, je souhaite obtenir des renseignements sur le Collège Jean Piaget 1.");
     const waUrl = waNumber ? `https://wa.me/${waNumber}?text=${waMessage}` : '#';
 
     const waBtn = document.createElement('a');
@@ -572,32 +545,3 @@ const SITE_SHARED = {
     document.body.appendChild(waBtn);
     requestAnimationFrame(() => waBtn.classList.add('is-visible'));
   }, 1200);
-
-// ==========================================
-// 7. EFFET DE TILT 3D AU SURVOL (cartes projets & compétences)
-//    — suit la position du curseur, désactivé sur écrans tactiles
-// ==========================================
-(function () {
-    const supportsHoverTilt = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    if (!supportsHoverTilt) return;
-
-    const tiltCards = document.querySelectorAll('.project-card, .skill-card');
-
-    tiltCards.forEach((card) => {
-        card.style.willChange = 'transform';
-
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width - 0.5;
-            const y = (e.clientY - rect.top) / rect.height - 0.5;
-            const maxTilt = 8; // degrés
-            const rotateX = (-y * maxTilt).toFixed(2);
-            const rotateY = (x * maxTilt).toFixed(2);
-            card.style.transform = `translateY(-8px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = '';
-        });
-    });
-})();

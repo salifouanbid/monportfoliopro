@@ -75,45 +75,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. GESTION DU FORMULAIRE DE CONTACT
     // ==========================================
     const contactForm = document.querySelector('.contact-form');
-
+    
     if (contactForm) {
-        contactForm.addEventListener('submit', function (e) {
+        contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-
+            
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
             const langueActuelleFormulaire = localStorage.getItem('langue') || 'fr';
-
+            
             submitBtn.textContent = langueActuelleFormulaire === 'en' ? 'Sending...' : 'Envoi en cours...';
             submitBtn.style.opacity = '0.7';
             submitBtn.disabled = true;
-
-            fetch(this.action, {
-                method: 'POST',
-                body: new FormData(this),
-                headers: { 'Accept': 'application/json' }
-            })
-                .then((response) => {
-                    if (response.ok) {
-                        alert(langueActuelleFormulaire === 'en'
-                            ? 'Thank you! Your message was sent successfully. 🚀'
-                            : 'Merci ! Votre message a été envoyé avec succès. 🚀');
-                        contactForm.reset();
-                    } else {
-                        throw new Error('Formspree a refusé la requête');
-                    }
-                })
-                .catch(() => {
-                    alert(langueActuelleFormulaire === 'en'
-                        ? "Sorry, the message couldn't be sent. Please email me directly instead."
-                        : "Désolé, le message n'a pas pu être envoyé. Écris-moi directement par email en attendant."
-                    );
-                })
-                .finally(() => {
-                    submitBtn.textContent = originalText;
-                    submitBtn.style.opacity = '1';
-                    submitBtn.disabled = false;
-                });
+            
+            setTimeout(() => {
+                alert(langueActuelleFormulaire === 'en'
+                    ? 'Thank you! Your message was sent successfully. 🚀'
+                    : 'Merci ! Votre message a été envoyé avec succès. 🚀');
+                contactForm.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.style.opacity = '1';
+                submitBtn.disabled = false;
+            }, 2000);
         });
     }
 
@@ -530,22 +513,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     rafraichirSuggestionsChat();
     if (langueActuelle !== 'fr') appliquerLangue(langueActuelle);
-
-    // ==========================================
-    // 8. BOUTON "HAUT DE PAGE"
-    // ==========================================
-    const backToTopBtn = document.getElementById('backToTop');
-    if (backToTopBtn) {
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        const toggleBackToTop = () => {
-            backToTopBtn.classList.toggle('visible', window.scrollY > 400);
-        };
-        toggleBackToTop();
-        window.addEventListener('scroll', toggleBackToTop);
-    }
 });
 
 /* Bouton flottant WhatsApp — coordonnées personnelles d'Anbid */

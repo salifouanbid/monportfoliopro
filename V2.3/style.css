@@ -229,10 +229,10 @@ header {
     align-items: center;
     gap: 10px;
     padding: 10px 20px;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
-    color: var(--text-main);
+    color: var(--text-dim);
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
@@ -242,18 +242,14 @@ header {
 .btn-github img {
     width: 24px;
     height: 24px;
-    filter: invert(1); /* icône claire sur fond sombre */
-}
-
-.light-theme .btn-github img {
-    filter: none; /* icône déjà sombre, lisible sur fond clair */
+    filter: invert(1); /* Inverse la couleur si l'icône est noire sur fond sombre */
 }
 
 .btn-github:hover {
-    background: var(--bg-alt);
-    border-color: var(--text-main);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #ffffff;
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px hsl(var(--shadow-color) / 0.15);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
 }
 
 /* Si tu veux l'aligner à côté du bouton de téléchargement du CV */
@@ -1007,39 +1003,6 @@ footer {
     padding: inline 0.3em;
     color:#030712;
 
-}
-
-/* BOUTON "HAUT DE PAGE" — masqué tant qu'on n'a pas défilé */
-.back-to-top {
-    position: fixed;
-    bottom: 95px;
-    right: 25px;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    color: var(--text-main);
-    padding: 10px 16px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    backdrop-filter: blur(8px);
-    z-index: 1400;
-    opacity: 0;
-    transform: translateY(15px);
-    pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
-}
-
-.back-to-top.visible {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-}
-
-.back-to-top:hover { border-color: var(--primary); color: var(--primary); }
-
-@media (max-width: 768px) {
-    .back-to-top { bottom: 90px; right: 16px; padding: 8px 12px; font-size: 0.75rem; }
 }
 
 /* Bouton flottant WhatsApp */
