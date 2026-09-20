@@ -6,46 +6,47 @@
     --bg-alt: #0b1220;
     --card-bg: rgba(255, 255, 255, 0.035);
     --border: rgba(255, 255, 255, 0.09);
-    --primary: #2e7cf6;              /* bleu vif — actions principales */
-    --primary-dk: #1a5bd1;
-    --primary-lt: #7db2ff;
-    --primary-glow: rgba(46, 124, 246, 0.28);
-    --secondary: #ff7a3d;            /* orange vif — accent chaud, contrepoint du bleu */
-    --secondary-glow: rgba(255, 122, 61, 0.28);
-    --gold: #ffc542;                 /* or/jaune — troisième accent, usage ponctuel */
+    --primary: #2dd4e8;              /* cyan — actions principales */
+    --primary-dk: #17b3c4;
+    --primary-lt: #8fe9f5;
+    --primary-glow: rgba(45, 212, 232, 0.28);
+    --secondary: #ff6b5b;            /* corail — accent chaud, contrepoint du cyan */
+    --secondary-glow: rgba(255, 107, 91, 0.28);
+    --gold: #e8b84b;                 /* or — troisième accent, usage ponctuel */
     --text-main: #eef3fa;
     --text-dim: #93a4c2;
     --white: #ffffff;
     --header-bg: rgba(6, 10, 20, 0.75);
     --input-bg: #0d1526;
-    --hero-gradient: linear-gradient(135deg, rgba(46, 124, 246, 0.16), rgba(255, 122, 61, 0.06) 60%, transparent);
+    --hero-gradient: linear-gradient(135deg, rgba(45, 212, 232, 0.12), rgba(255, 107, 91, 0.05) 60%, transparent);
     --shadow-color: 220 60% 2%;
     --radius: 20px;
     --transition: 0.3s ease;
 }
 
 /* ==========================================================================
-   PALETTE — MODE CLAIR : bleu vif + orange, esprit "plateforme" lumineuse
+   PALETTE — MODE CLAIR : inspirée du site du Collège Jean Piaget
+   (marine institutionnel + bleu + or, sur fond papier/ciel pâle)
    ========================================================================== */
 .light-theme {
     --bg: #ffffff;
-    --bg-alt: #eef4ff;
+    --bg-alt: #eaf2fb;
     --card-bg: #ffffff;
-    --border: rgba(11, 37, 69, 0.10);
-    --primary: #2158e0;              /* bleu vif institutionnel */
-    --primary-dk: #16409e;
-    --primary-lt: #5a8bf0;
-    --primary-glow: rgba(33, 88, 224, 0.14);
-    --secondary: #ff7a3d;            /* orange vif */
-    --secondary-glow: rgba(255, 122, 61, 0.16);
-    --gold: #ffb020;
-    --text-main: #10203d;            /* bleu nuit */
-    --text-dim: #55698c;
-    --white: #10203d;
+    --border: rgba(11, 37, 69, 0.12);
+    --primary: #1d4f91;              /* bleu institutionnel */
+    --primary-dk: #133866;
+    --primary-lt: #4e86c7;
+    --primary-glow: rgba(29, 79, 145, 0.16);
+    --secondary: #c9971f;            /* or, en écho au site du collège */
+    --secondary-glow: rgba(201, 151, 31, 0.18);
+    --gold: #c9971f;
+    --text-main: #0b2545;            /* bleu nuit */
+    --text-dim: #4c5e78;
+    --white: #0b2545;
     --header-bg: rgba(255, 255, 255, 0.85);
     --input-bg: #ffffff;
-    --hero-gradient: linear-gradient(150deg, #eef4ff 0%, #ffffff 55%);
-    --shadow-color: 220 60% 25%;
+    --hero-gradient: linear-gradient(150deg, #eaf2fb 0%, #ffffff 55%);
+    --shadow-color: 213 55% 20%;
 }
 
 /* Petite transition fluide pour éviter que le changement de couleur soit brutal */
@@ -369,26 +370,20 @@ header {
 .btn-primary {
     background: var(--primary);
     color: white;
-    padding: 12px 26px;
-    border-radius: 30px;
+    padding: 12px 25px;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: bold;
     transition: 0.3s;
-    box-shadow: 0 10px 20px var(--primary-glow);
 }
-
-.btn-primary:hover { background: var(--primary-dk); transform: translateY(-2px); }
 
 .btn-secondary {
     border: 1px solid var(--border);
     color: var(--text-dim);
-    padding: 12px 26px;
-    border-radius: 30px;
+    padding: 12px 25px;
+    border-radius: 10px;
     text-decoration: none;
-    transition: 0.3s;
 }
-
-.btn-secondary:hover { border-color: var(--secondary); color: var(--secondary); }
 section[id] {
     padding: 80px 10%;
 }
@@ -420,7 +415,6 @@ section[id] {
 }
 
 .experience-badge {
-    position: relative;
     transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     transform-style: preserve-3d;
 }
@@ -456,106 +450,6 @@ section[id] {
 
 .experience-badge:hover .icon {
     transform: translateZ(45px);
-}
-
-/* --- Badges flottants sur la photo (style "landing page") --- */
-.stat-float {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    backdrop-filter: blur(10px);
-    padding: 10px 16px;
-    border-radius: 18px;
-    box-shadow: 0 15px 30px hsl(var(--shadow-color) / 0.35);
-    z-index: 5;
-    transition: transform 0.4s ease;
-}
-
-.stat-float--top { top: 8%; right: -8%; }
-.stat-float--bottom { bottom: 6%; left: -12%; }
-
-.stat-float-icon {
-    font-size: 1.4rem;
-    line-height: 1;
-}
-
-.stat-float strong {
-    display: block;
-    color: var(--primary);
-    font-size: 1rem;
-    line-height: 1.2;
-}
-
-.stat-float small {
-    color: var(--text-dim);
-    font-size: 0.7rem;
-}
-
-.experience-badge:hover .stat-float--top { transform: translateZ(30px) translateY(-3px); }
-.experience-badge:hover .stat-float--bottom { transform: translateZ(30px) translateY(3px); }
-
-@media (max-width: 900px) {
-    .stat-float--top { right: 0; }
-    .stat-float--bottom { left: 0; }
-}
-
-@media (max-width: 500px) {
-    .stat-float { padding: 7px 12px; gap: 6px; border-radius: 14px; }
-    .stat-float strong { font-size: 0.85rem; }
-    .stat-float small { font-size: 0.62rem; }
-    .stat-float--top { top: 4%; }
-    .stat-float--bottom { bottom: 3%; }
-}
-
-/* --- Bandeau de points forts sous le hero --- */
-.strengths-strip {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 14px;
-    padding: 25px 8%;
-    background: var(--bg-alt);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-}
-
-.strength-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    padding: 8px 18px 8px 8px;
-    border-radius: 30px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-main);
-    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.strength-item span {
-    font-size: 1.1rem;
-    width: 36px;
-    height: 36px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dk));
-}
-
-.strength-item:nth-child(even) span {
-    background: linear-gradient(135deg, var(--secondary), var(--gold));
-}
-
-.strength-item:hover {
-    transform: translateY(-4px);
-    border-color: var(--primary);
-    box-shadow: 0 12px 24px hsl(var(--shadow-color) / 0.18);
 }
 
 /* SECTION TITLES */
@@ -772,7 +666,6 @@ section[id] {
     overflow: hidden;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s, border-color 0.3s;
     transform-style: preserve-3d;
-    box-shadow: 0 8px 24px hsl(var(--shadow-color) / 0.08);
 }
 
 .project-card:hover {
@@ -792,21 +685,6 @@ section[id] {
     border-bottom: 1px solid var(--border);
     overflow: hidden;
     position: relative;
-}
-
-.project-pill {
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    z-index: 3;
-    background: var(--secondary);
-    color: #fff;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    padding: 5px 14px;
-    border-radius: 20px;
-    box-shadow: 0 8px 16px hsl(var(--shadow-color) / 0.25);
 }
 
 .project-img svg {
@@ -833,25 +711,6 @@ section[id] {
 .project-img--snake-js{ background: linear-gradient(135deg, rgba(232, 184, 75, 0.18), var(--bg-alt) 70%); }
 .project-img--snake-c { background: linear-gradient(135deg, var(--bg-alt), var(--border) 140%); }
 .project-img--college { background: linear-gradient(135deg, var(--secondary-glow), var(--primary-glow) 120%); }
-.project-img--vacances { background: linear-gradient(135deg, var(--gold), var(--secondary-glow) 100%); }
-
-/* --- Diaporama "Cahier de Vacances" : une photo toutes les 1s, fondu enchaîné --- */
-.vacances-slider {
-    position: absolute;
-    inset: 0;
-}
-
-.vacances-slide {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-}
-
-.vacances-slide.is-active { opacity: 1; }
 
 /* --- Éléments SVG communs --- */
 .pi-line { stroke: var(--primary); stroke-width: 2; opacity: 0.55; }

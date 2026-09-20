@@ -45,8 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, 300);
 
-    //Defilement des photos — géré proprement plus bas (voir section "DIAPORAMA CAHIER DE VACANCES")
-
 
     // ==========================================
     // 2. DÉFILEMENT FLUIDE (SMOOTH SCROLL)
@@ -255,7 +253,6 @@ document.addEventListener('DOMContentLoaded', () => {
             projet_agent_titre: "Tuteur IA de Mathématiques & Code", projet_agent_desc: "Assistant local (Ollama + RAG) pour aider aux exercices, avec historique de conversation et analyse d'images/documents.",
             projet_snake_titre: "Jeu Snake", projet_snake_desc: "Recréation du jeu classique du serpent, logique de collision et score en temps réel.",
             projet_college_titre: "Site du Collège Jean Piaget", projet_college_desc: "Site complet développé en collaboration avec un ami pour l'établissement.",
-            projet_vacances_titre: "Cahier de Vacances — 7 mini-projets Machine Learning", projet_vacances_desc: "7 projets conçus de A à Z avec des technologies nouvelles, dans le cadre d'une formation à distance avec Guillaume Saint-Cyr, en collaboration internationale autour du machine learning et du deep learning.",
             projet_lien_github: "🔗 Voir le dépôt GitHub",
 
             contact_titre: "Contactez-moi",
@@ -330,7 +327,6 @@ document.addEventListener('DOMContentLoaded', () => {
             projet_agent_titre: "AI Tutor for Math & Code", projet_agent_desc: "Local assistant (Ollama + RAG) to help with exercises, with conversation history and image/document analysis.",
             projet_snake_titre: "Snake Game", projet_snake_desc: "Recreation of the classic Snake game, with collision logic and real-time scoring.",
             projet_college_titre: "Collège Jean Piaget Website", projet_college_desc: "Full website built in collaboration with a friend for the school.",
-            projet_vacances_titre: "Summer Notebook — 7 Machine Learning mini-projects", projet_vacances_desc: "7 projects built from scratch with new technologies, as part of remote training with Guillaume Saint-Cyr, in international collaboration around machine learning and deep learning.",
             projet_lien_github: "🔗 View GitHub repo",
 
             contact_titre: "Get in Touch",
@@ -603,28 +599,5 @@ const SITE_SHARED = {
         card.addEventListener('mouseleave', () => {
             card.style.transform = '';
         });
-    });
-})();
-
-
-// ==========================================
-// 8. DIAPORAMA CAHIER DE VACANCES (une image toutes les 1s)
-// ==========================================
-(function () {
-    const sliders = document.querySelectorAll('.vacances-slider');
-    if (!sliders.length) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    sliders.forEach((slider) => {
-        const slides = slider.querySelectorAll('.vacances-slide');
-        if (slides.length < 2 || prefersReducedMotion) return;
-
-        let current = 0;
-        setInterval(() => {
-            slides[current].classList.remove('is-active');
-            current = (current + 1) % slides.length;
-            slides[current].classList.add('is-active');
-        }, 3000);
     });
 })();
