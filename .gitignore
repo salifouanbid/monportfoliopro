@@ -1,0 +1,8 @@
+# Fichiers temporaires Word / éditeurs / système
+~$*
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Documents de travail (CV sources, brouillons) : à garder en local
+CV/
