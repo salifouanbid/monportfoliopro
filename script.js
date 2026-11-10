@@ -1,5 +1,45 @@
 document.addEventListener('DOMContentLoaded', () => {
     
+    // Effet machine à écrire : titre puis paragraphe de l'en-tête, lettre par lettre
+    const titleElement = document.getElementById('typewriter-title');
+    const textElement = document.getElementById('typewriter-text');
+    const titleSpeed = 60; // millisecondes par lettre
+    const textSpeed = 30;
+    let versionFrappe = 0; // permet d'interrompre une frappe quand la langue change
+
+    function typeWriter(element, text, speed, version, callback) {
+        if (!element) return;
+        let index = 0;
+        element.textContent = '';
+        element.dataset.animating = 'true';
+
+        function type() {
+            if (version !== versionFrappe) return; // frappe remplacée par une plus récente
+            if (index < text.length) {
+                element.textContent += text.charAt(index);
+                index++;
+                setTimeout(type, speed);
+            } else {
+                delete element.dataset.animating;
+                if (callback) callback();
+            }
+        }
+        type();
+    }
+
+    function lancerFrappe(delai) {
+        const version = ++versionFrappe;
+        if (titleElement) { delete titleElement.dataset.animating; titleElement.textContent = ''; }
+        if (textElement) { delete textElement.dataset.animating; textElement.textContent = ''; }
+        setTimeout(() => {
+            if (version !== versionFrappe) return;
+            const t = TRADUCTIONS[langueActuelle];
+            typeWriter(titleElement, t.hero_title, titleSpeed, version, () => {
+                typeWriter(textElement, t.hero_text, textSpeed, version);
+            });
+        }, delai);
+    }
+
     // Défilement fluide (smooth scroll)
     const navLinks = document.querySelectorAll('.nav-container a[href^="#"]');
     
@@ -115,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
             nav_projets: "Projets", nav_contact: "Contact",
             changer_langue: "Changer la langue",
             theme_vers_clair: "Mode clair", theme_vers_sombre: "Mode sombre", haut_de_page: "Haut de page",
-            portrait_alt: "Portrait d'Anbid Salifou",
             strength_1: "Boursier national", strength_2: "Club IA de l'IMSP", strength_3: "Prépa MPSI-PCSI-Info",
             strength_4: "Objectif : école d'ingénieurs en IA (ECC 2027)",
             stk_langages_titre: "Langages", stk_web_titre: "Web", stk_ia_titre: "IA &amp; données", stk_outils_titre: "Outils",
@@ -189,7 +228,6 @@ document.addEventListener('DOMContentLoaded', () => {
             nav_projets: "Projects", nav_contact: "Contact",
             changer_langue: "Change language",
             theme_vers_clair: "Light mode", theme_vers_sombre: "Dark mode", haut_de_page: "Back to top",
-            portrait_alt: "Portrait of Anbid Salifou",
             strength_1: "National scholarship holder", strength_2: "IMSP AI Club", strength_3: "MPSI-PCSI-Info prep class",
             strength_4: "Goal: an AI engineering school (ECC 2027)",
             stk_langages_titre: "Languages", stk_web_titre: "Web", stk_ia_titre: "AI &amp; data", stk_outils_titre: "Tools",
@@ -290,10 +328,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (TRADUCTIONS[langue][cle] !== undefined) el.placeholder = TRADUCTIONS[langue][cle];
         });
 
-        document.querySelectorAll('[data-i18n-alt]').forEach(el => {
-            const cle = el.getAttribute('data-i18n-alt');
-            if (TRADUCTIONS[langue][cle] !== undefined) el.alt = TRADUCTIONS[langue][cle];
-        });
+        // Texte d'en-tête : on relance la frappe dans la nouvelle langue si elle est en cours, sinon on remplace le texte
+        if (titleElement && textElement) {
+            if (titleElement.dataset.animating || textElement.dataset.animating) {
+                lancerFrappe(0);
+            } else {
+                titleElement.textContent = TRADUCTIONS[langue].hero_title;
+                textElement.textContent = TRADUCTIONS[langue].hero_text;
+            }
+        }
 
         majBoutonTheme();
     }
@@ -325,6 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
     majBoutonTheme();
 
     if (langueActuelle !== 'fr') appliquerLangue(langueActuelle);
+    lancerFrappe(300);
 
     // Bouton "haut de page"
     const backToTopBtn = document.getElementById('backToTop');

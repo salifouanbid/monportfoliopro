@@ -9,7 +9,7 @@ Il présente mon parcours, mes compétences et mes projets, en français et en a
 index.html       contenu de la page
 style.css        mise en forme (thèmes clair et sombre via variables CSS)
 script.js        navigation, thème, traductions FR/EN, formulaire, diaporamas
-images/          captures et photo
+images/          captures d'écran des projets
 assets/          CV en PDF
 ```
 
