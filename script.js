@@ -1,460 +1,86 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // Effet machine à écrire : titre puis paragraphe de l'en-tête, lettre par lettre
-    const titleElement = document.getElementById('typewriter-title');
-    const textElement = document.getElementById('typewriter-text');
-    const titleSpeed = 60; // millisecondes par lettre
-    const textSpeed = 30;
-    let versionFrappe = 0; // permet d'interrompre une frappe quand la langue change
-
-    function typeWriter(element, text, speed, version, callback) {
-        if (!element) return;
-        let index = 0;
-        element.textContent = '';
-        element.dataset.animating = 'true';
-
-        function type() {
-            if (version !== versionFrappe) return; // frappe remplacée par une plus récente
-            if (index < text.length) {
-                element.textContent += text.charAt(index);
-                index++;
-                setTimeout(type, speed);
-            } else {
-                delete element.dataset.animating;
-                if (callback) callback();
-            }
-        }
-        type();
-    }
-
-    function lancerFrappe(delai) {
-        const version = ++versionFrappe;
-        if (titleElement) { delete titleElement.dataset.animating; titleElement.textContent = ''; }
-        if (textElement) { delete textElement.dataset.animating; textElement.textContent = ''; }
-        setTimeout(() => {
-            if (version !== versionFrappe) return;
-            const t = TRADUCTIONS[langueActuelle];
-            typeWriter(titleElement, t.hero_title, titleSpeed, version, () => {
-                typeWriter(textElement, t.hero_text, textSpeed, version);
-            });
-        }, delai);
-    }
-
-    // Défilement fluide (smooth scroll)
-    const navLinks = document.querySelectorAll('.nav-container a[href^="#"]');
-    
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
-                const headerHeight = document.querySelector('header').offsetHeight;
-                const targetPosition = targetSection.getBoundingClientRect().top + window.scrollY - headerHeight;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // Formulaire de contact
-    // Sans service d'envoi configuré (data-endpoint vide), le message ouvre le client mail prérempli.
-    // Pour un envoi direct, renseigner data-endpoint avec une URL Formspree dans index.html.
-    const contactForm = document.getElementById('contactForm');
-    const formStatus = document.getElementById('formStatus');
-    const EMAIL_CONTACT = 'salifouanbid@gmail.com';
-
-    function afficherStatut(cle, erreur) {
-        if (!formStatus) return;
-        formStatus.textContent = TRADUCTIONS[langueActuelle][cle] || '';
-        formStatus.classList.toggle('is-error', !!erreur);
-    }
-
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const data = new FormData(contactForm);
-            const endpoint = contactForm.dataset.endpoint;
-
-            if (!endpoint) {
-                const sujet = encodeURIComponent('Message depuis le portfolio — ' + data.get('name'));
-                const corps = encodeURIComponent(data.get('message') + '\n\n' + data.get('name') + ' (' + data.get('email') + ')');
-                window.location.href = 'mailto:' + EMAIL_CONTACT + '?subject=' + sujet + '&body=' + corps;
-                afficherStatut('form_mailto');
-                return;
-            }
-
-            const bouton = contactForm.querySelector('button[type="submit"]');
-            bouton.disabled = true;
-            afficherStatut('form_envoi_cours');
-            fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
-                .then((reponse) => {
-                    if (!reponse.ok) throw new Error('envoi refusé');
-                    contactForm.reset();
-                    afficherStatut('form_ok');
-                })
-                .catch(() => afficherStatut('form_erreur', true))
-                .finally(() => { bouton.disabled = false; });
-        });
-    }
-
-    // Animation au défilement (scroll reveal)
-    const revealElements = document.querySelectorAll('.skill-card, .timeline-item, .project-card, .glass-card');
-    
-    revealElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'all 0.6s ease-out';
-    });
-
-    const revealOnScroll = () => {
-        const triggerBottom = (window.innerHeight / 5) * 4;
-        
-        revealElements.forEach(el => {
-            const elTop = el.getBoundingClientRect().top;
-            
-            if (elTop < triggerBottom) {
-                el.style.opacity = '1';
-                el.style.transform = 'translateY(0)';
-            }
-        });
-    };
-
-    window.addEventListener('scroll', revealOnScroll);
-    revealOnScroll(); 
-    // Menu mobile (hamburger)
-    const hamburgerBtn = document.getElementById('hamburger-btn');
-    const navLinksList = document.getElementById('nav-links');
-
-    if (hamburgerBtn && navLinksList) {
-        hamburgerBtn.addEventListener('click', () => {
-            const ouvert = navLinksList.classList.toggle('open');
-            hamburgerBtn.classList.toggle('active', ouvert);
-            hamburgerBtn.setAttribute('aria-expanded', String(ouvert));
-        });
-
-        // Ferme le menu mobile après un clic sur un lien
-        navLinksList.querySelectorAll('a').forEach(a => {
-            a.addEventListener('click', () => {
-                hamburgerBtn.classList.remove('active');
-                hamburgerBtn.setAttribute('aria-expanded', 'false');
-                navLinksList.classList.remove('open');
-            });
-        });
-    }
-
-    // Changement de langue (FR / EN)
-    const TRADUCTIONS = {
+    const translations = {
         fr: {
-            nav_accueil: "Accueil", nav_parcours: "Parcours", nav_competences: "Compétences",
-            nav_projets: "Projets", nav_contact: "Contact",
-            changer_langue: "Changer la langue",
-            theme_vers_clair: "Mode clair", theme_vers_sombre: "Mode sombre", haut_de_page: "Haut de page",
-            strength_1: "Boursier national", strength_2: "Club IA de l'IMSP", strength_3: "Prépa MPSI-PCSI-Info",
-            strength_4: "Objectif : école d'ingénieurs en IA (ECC 2027)",
-            stk_langages_titre: "Langages", stk_web_titre: "Web", stk_ia_titre: "IA &amp; données", stk_outils_titre: "Outils",
-            stk_c: "intermédiaire, jeu Snake", stk_python: "machine learning : intermédiaire · Django : débutant",
-            stk_js: "débutant à intermédiaire", stk_html: "site du collège, boutique en ligne, ce portfolio",
-            stk_flask: "interface du tuteur IA", stk_ml: "sept mini-projets du cahier de vacances",
-            stk_rag: "assistant local avec RAG", stk_data: "visualisation et bases de données", stk_office: "utilisation avancée",
-            projet_boutique_titre: "Boutique en ligne", projet_boutique_desc: "Utiliser les technologies web pour créer une boutique en ligne fonctionnelle.",
-            projet_portfolio_titre: "Ce portfolio", projet_portfolio_desc: "Site statique en HTML, CSS et JavaScript, bilingue (français / anglais) avec thème clair et sombre.",
-            form_ok: "Merci ! Votre message a bien été envoyé.", form_erreur: "Le message n'a pas pu être envoyé. Écrivez-moi directement par e-mail.",
-            form_mailto: "Votre application de messagerie s'ouvre avec le message prérempli.",
-            hero_badge: "Étudiant en CPGE",
-            hero_btn_projets: "Voir mes projets", hero_btn_contact: "Me contacter",
-            hero_title: "Anbid Salifou",
-            hero_text: "Étudiant en classe préparatoire (MPSI-PCSI-Info) à l'IMSP, au Bénin. Je programme en C et en Python, et je construis des projets web et d'IA : un tuteur de maths en local, le site d'un collège, sept mini-projets de machine learning.",
-
-            parcours_titre: "Mon parcours",
-            achievement_titre: "1ère année de CPGE réussie sans rattrapage",
-            achievement_desc: "Moyenne générale de <strong>14,42/20</strong>",
-            timeline_bourse: "Lauréat de la bourse d'excellence du baccalauréat au Bénin.",
-            timeline_bac: "Mention Très Bien au Baccalauréat béninois, avec une moyenne de 15 en classe de terminale indépendamment des examens nationaux et une 3e place à l'appui.",
-            timeline_cpge_desc: "<p>Actuellement en classe préparatoire aux grandes écoles (CPGE),</p><p>je me spécialise en mathématiques et informatique.</p>",
-
-            antecedents_titre: "Antécédents académiques",
-            timeline_1ere: "Moyenne en 1ère C : 14,73",
-            timeline_2nde: "Moyenne en Seconde C : 15,89 avec une deuxième place, témoignant de la rigueur, de la discipline et de l'excellence.",
-            timeline_bepc: "Moyenne de 16,38 au BEPC béninois.",
-
-            engagements_titre: "Engagements",
-            engagement_sport: "Engagement sportif : membre actif du club de football de l'Institut de Mathématiques et de Sciences Physiques (IMSP).",
-            engagement_sci: "Engagement scientifique : membre actif du club d'intelligence artificielle de l'IMSP.",
-
-            langues_titre: "Langues",
-            langue_fr: "Français : niveau intermédiaire",
-            langue_en: "Anglais : niveau B1",
-
-            about_titre: "À propos de moi",
-            about_texte: "Lauréat de la bourse d'excellence au Bénin, je cultive la rigueur et la discipline. Entre le football et l'intelligence artificielle à l'IMSP, je forge mon profil technique au quotidien.",
-            info_nom: "<strong>Nom</strong> SOULE SALIFOU Ola Anbid",
-            info_email: "<strong>Email</strong> salifouanbid@gmail.com",
-            info_langues: "<strong>Langues</strong> Français, Anglais (B1)",
-            info_age: "<strong>Âge</strong> 17 ans",
-            info_lieu: "<strong>Localisation</strong> Bénin",
-            cv_intro: "Mon parcours détaillé est disponible ici :",
-            cv_bouton: "Télécharger mon CV (PDF)",
-
-            competences_titre: "Mes Compétences",
-
-            projets_titre: "Mes Projets",
-            projet_agent_titre: "Tuteur IA de Mathématiques & Code", projet_agent_desc: "Assistant local (Ollama + RAG) pour aider aux exercices, avec historique de conversation et analyse d'images/documents.",
-            projet_snake_titre: "Jeu Snake", projet_snake_desc: "Recréation du jeu classique du serpent, logique de collision et score en temps réel.",
-            projet_college_titre: "Site du Collège Jean Piaget", projet_college_desc: "Site complet développé en collaboration avec un ami pour l'établissement.",
-            projet_vacances_titre: "Cahier de Vacances — 7 mini-projets Machine Learning", projet_vacances_desc: "7 projets conçus de A à Z avec des technologies nouvelles, dans le cadre d'une formation à distance avec Guillaume Saint-Cyr, en collaboration internationale autour du machine learning et du deep learning.",
-            projet_lien_github: "Voir le dépôt GitHub",
-
-            contact_titre: "Contactez-moi",
-            contact_texte: "Une suggestion ou un projet ? Parlons-en.",
-            contact_pays: "Bénin",
-            contact_tel: "+229 0155873800",
-            form_nom: "Nom complet",
-            form_email: "Votre Email",
-            form_message: "Votre message...",
-            form_envoyer: "Envoyer le message",
-            form_envoi_cours: "Envoi en cours…",
-
-            footer_texte: "© 2026 Anbid Salifou",
-
+            nav_about:'À propos', nav_journey:'Parcours', nav_skills:'Compétences', nav_projects:'Projets', nav_contact:'Contact',
+            theme_light:'Mode clair', theme_dark:'Mode sombre', hero_eyebrow:'Étudiant · développeur · curieux', hero_title:'Anbid Salifou', hero_text:"Étudiant en classe préparatoire à l'IMSP, je construis des projets en C, Python, web et intelligence artificielle.", hero_projects:'Découvrir mes projets', hero_cv:'Télécharger mon CV', hero_location:'Basé au Bénin', portrait_placeholder:'Portrait à ajouter', portrait_note:'Un espace volontairement laissé libre pour une photo professionnelle.', portrait_caption:'Espace réservé · pas de photo intégrée',
+            proof_average:'moyenne en première année de CPGE', proof_studies:'mathématiques & informatique', proof_club:'membre du club IA de l’IMSP', proof_goal:'objectif école d’ingénieurs', about_kicker:'Profil', about_title:'Apprendre sérieusement.<br><em>Construire concrètement.</em>', about_lead:"Je m'appelle Soule Salifou Ola Anbid. Je développe un profil à la rencontre des mathématiques, de la programmation et de l'intelligence artificielle.", about_text:"Lauréat d'une bourse d'excellence au Bénin et étudiant à l'IMSP, j'aime comprendre les systèmes en profondeur avant de les transformer en projets utiles. Ce portfolio rassemble mes expériences, mes apprentissages et les réalisations qui montrent mon évolution.", detail_name_label:'Nom', detail_languages_label:'Langues', detail_languages:'Français · Anglais B1', detail_focus_label:'Focus actuel', detail_focus:'Maths · Python · IA', detail_availability_label:'Échange', detail_availability:'Ouvert aux projets',
+            journey_kicker:'Parcours', journey_title:'Une trajectoire fondée<br>sur la <em>rigueur.</em>', achievement_label:'Résultat marquant', achievement_title:'Première année de CPGE réussie sans rattrapage', achievement_text:'Une année exigeante en mathématiques, physique et informatique, menée avec régularité.', timeline_bac_title:'Baccalauréat — Mention Très Bien', timeline_bac_text:'Moyenne de 15 en classe de terminale et troisième place au niveau national.', timeline_cpge_title:'IMSP — Classe préparatoire', timeline_cpge_text:'Spécialisation progressive en mathématiques, informatique et résolution de problèmes.', timeline_now_date:"Aujourd'hui", timeline_now_title:'Construire la suite', timeline_now_text:"Préparer une école d'ingénieurs en intelligence artificielle tout en développant des projets personnels.", engagements_label:'Aussi', engagements_text:"Club d'intelligence artificielle · club de football · apprentissage autonome",
+            skills_kicker:'Compétences', skills_title:'Des bases solides,<br>une <em>curiosité active.</em>', skill_python:'Machine learning, Flask, Django (débutant), traitement de données.', skill_c:'Logique, structures, algorithmique et développement d’un jeu Snake.', skill_web:'HTML, CSS, JavaScript et interfaces statiques responsive.', skill_ai:'LangChain, Ollama, RAG, SQL, Matplotlib et expérimentation ML.', level_intermediate:'Intermédiaire', level_learning:'En progression', level_exploring:'Exploration',
+            projects_kicker:'Sélection', projects_title:'Les projets en disent<br><em>plus que les promesses.</em>', projects_note:"Une sélection de travaux qui documentent mon apprentissage, de l'IA locale aux interfaces web.", project_build:'Projet personnel', project_collab:'Collaboration', project_ai_title:'Tuteur IA de mathématiques & code', project_ai_text:'Un assistant local basé sur Ollama et RAG pour accompagner les exercices, avec historique et analyse de documents.', project_ml_title:'Cahier de vacances', project_ml_text:'Sept mini-projets de machine learning et deep learning construits de A à Z dans une formation collaborative.', project_school_title:'Site du Collège Jean Piaget', project_school_text:"Un site complet conçu avec un collaborateur pour présenter un établissement scolaire.", project_shop_title:'Boutique en ligne', project_shop_text:"Une première expérience de conception d'une interface de commerce avec panier et interactions côté client.",
+            contact_kicker:'Contact', contact_title:'Un projet, une question,<br><em>une idée à partager ?</em>', contact_text:"Le plus simple est de m'écrire. Je réponds avec plaisir aux échanges autour de la programmation, de l'IA et des projets web.", form_name:'Nom complet', form_email:'Adresse e-mail', form_message:'Votre message', form_send:'Préparer le message', form_mailto:'Votre application de messagerie va s’ouvrir avec le message prérempli.', footer_note:'Portfolio personnel · conçu avec intention', footer_top:'Retour en haut ↑', assistant_title:"À propos d'Anbid", assistant_welcome:'Je peux répondre rapidement sur le parcours, les compétences, les projets ou le contact.', assistant_placeholder:'Posez une question…', assistant_unknown:'Je n’ai pas trouvé la réponse. Essayez une suggestion ou écrivez directement à Anbid.'
         },
         en: {
-            nav_accueil: "Home", nav_parcours: "Journey", nav_competences: "Skills",
-            nav_projets: "Projects", nav_contact: "Contact",
-            changer_langue: "Change language",
-            theme_vers_clair: "Light mode", theme_vers_sombre: "Dark mode", haut_de_page: "Back to top",
-            strength_1: "National scholarship holder", strength_2: "IMSP AI Club", strength_3: "MPSI-PCSI-Info prep class",
-            strength_4: "Goal: an AI engineering school (ECC 2027)",
-            stk_langages_titre: "Languages", stk_web_titre: "Web", stk_ia_titre: "AI &amp; data", stk_outils_titre: "Tools",
-            stk_c: "intermediate, Snake game", stk_python: "machine learning: intermediate · Django: beginner",
-            stk_js: "beginner to intermediate", stk_html: "school website, online shop, this portfolio",
-            stk_flask: "AI tutor interface", stk_ml: "seven mini-projects of the summer notebook",
-            stk_rag: "local assistant with RAG", stk_data: "visualization and databases", stk_office: "advanced use",
-            projet_boutique_titre: "Online shop", projet_boutique_desc: "Using web technologies to build a working online shop.",
-            projet_portfolio_titre: "This portfolio", projet_portfolio_desc: "Static site in HTML, CSS and JavaScript, bilingual (French / English) with light and dark themes.",
-            form_ok: "Thank you! Your message was sent.", form_erreur: "The message could not be sent. Please email me directly.",
-            form_mailto: "Your mail app is opening with the message pre-filled.",
-            hero_badge: "CPGE Student",
-            hero_btn_projets: "View my projects", hero_btn_contact: "Contact me",
-            hero_title: "Anbid Salifou",
-            hero_text: "Preparatory-class student (MPSI-PCSI-Info) at IMSP, Benin. I write C and Python and build web and AI projects: a local maths tutor, a school website, seven machine-learning mini-projects.",
-
-            parcours_titre: "My Journey",
-            achievement_titre: "Passed 1st year of CPGE with no resit exams",
-            achievement_desc: "Overall average of <strong>14.42/20</strong>",
-            timeline_bourse: "Awarded the Baccalauréat excellence scholarship in Benin.",
-            timeline_bac: "Graduated with High Honors at the Beninese Baccalauréat, with a 15/20 average in final year independently of national exams, and ranked 3rd.",
-            timeline_cpge_desc: "<p>Currently in a preparatory class for top engineering schools (CPGE),</p><p>specializing in mathematics and computer science.</p>",
-
-            antecedents_titre: "Academic Background",
-            timeline_1ere: "11th grade average: 14.73/20",
-            timeline_2nde: "10th grade average: 15.89/20, ranked 2nd — a reflection of rigor, discipline and excellence.",
-            timeline_bepc: "16.38/20 average at the Beninese BEPC exam.",
-
-            engagements_titre: "Involvements",
-            engagement_sport: "Sports involvement: active member of the football club at the Institute of Mathematics and Physical Sciences (IMSP).",
-            engagement_sci: "Scientific involvement: active member of the IMSP AI club.",
-
-            langues_titre: "Languages",
-            langue_fr: "French: intermediate level",
-            langue_en: "English: B1 level",
-
-            about_titre: "About Me",
-            about_texte: "Winner of the excellence scholarship in Benin, I cultivate rigor and discipline. Between football and AI at IMSP, I sharpen my technical profile every day.",
-            info_nom: "<strong>Name</strong> SOULE SALIFOU Ola Anbid",
-            info_email: "<strong>Email</strong> salifouanbid@gmail.com",
-            info_langues: "<strong>Languages</strong> French, English (B1)",
-            info_age: "<strong>Age</strong> 17",
-            info_lieu: "<strong>Location</strong> Benin",
-            cv_intro: "My detailed background is available here:",
-            cv_bouton: "Download my CV (PDF)",
-
-            competences_titre: "My Skills",
-
-            projets_titre: "My Projects",
-            projet_agent_titre: "AI Tutor for Math & Code", projet_agent_desc: "Local assistant (Ollama + RAG) to help with exercises, with conversation history and image/document analysis.",
-            projet_snake_titre: "Snake Game", projet_snake_desc: "Recreation of the classic Snake game, with collision logic and real-time scoring.",
-            projet_college_titre: "Collège Jean Piaget Website", projet_college_desc: "Full website built in collaboration with a friend for the school.",
-            projet_vacances_titre: "Summer Notebook — 7 Machine Learning mini-projects", projet_vacances_desc: "7 projects built from scratch with new technologies, as part of remote training with Guillaume Saint-Cyr, in international collaboration around machine learning and deep learning.",
-            projet_lien_github: "View GitHub repo",
-
-            contact_titre: "Get in Touch",
-            contact_texte: "A suggestion or a project? Let's talk.",
-            contact_pays: "Benin",
-            contact_tel: "+229 0155873800",
-            form_nom: "Full name",
-            form_email: "Your email",
-            form_message: "Your message...",
-            form_envoyer: "Send message",
-            form_envoi_cours: "Sending...",
-
-            footer_texte: "© 2026 Anbid Salifou",
-
+            nav_about:'About', nav_journey:'Journey', nav_skills:'Skills', nav_projects:'Projects', nav_contact:'Contact', theme_light:'Light mode', theme_dark:'Dark mode', hero_eyebrow:'Student · developer · curious mind', hero_title:'Anbid Salifou', hero_text:'Preparatory-class student at IMSP, building projects in C, Python, web development and artificial intelligence.', hero_projects:'Explore my projects', hero_cv:'Download my CV', hero_location:'Based in Benin', portrait_placeholder:'Portrait to add', portrait_note:'A deliberately open space for a professional photograph.', portrait_caption:'Reserved space · no photo included', proof_average:'first-year CPGE average', proof_studies:'mathematics & computer science', proof_club:'IMSP AI club member', proof_goal:'engineering school goal', about_kicker:'Profile', about_title:'Learn seriously.<br><em>Build concretely.</em>', about_lead:'My name is Soule Salifou Ola Anbid. I am building a profile at the intersection of mathematics, programming and artificial intelligence.', about_text:'A scholarship recipient in Benin and an IMSP student, I like understanding systems deeply before turning them into useful projects. This portfolio gathers my experiences, learning and the work that shows my progress.', detail_name_label:'Name', detail_languages_label:'Languages', detail_languages:'French · English B1', detail_focus_label:'Current focus', detail_focus:'Maths · Python · AI', detail_availability_label:'Conversation', detail_availability:'Open to projects', journey_kicker:'Journey', journey_title:'A path built on<br><em>rigour.</em>', achievement_label:'Key result', achievement_title:'Completed my first CPGE year without resits', achievement_text:'A demanding year in mathematics, physics and computer science, approached with consistency.', timeline_bac_title:'Baccalauréat — High Honors', timeline_bac_text:'A 15/20 final-year average and third place at national level.', timeline_cpge_title:'IMSP — Preparatory class', timeline_cpge_text:'Progressive focus on mathematics, computer science and problem solving.', timeline_now_date:'Now', timeline_now_title:'Building what comes next', timeline_now_text:'Preparing for an AI engineering school while developing personal projects.', engagements_label:'Also', engagements_text:'AI club · football club · self-directed learning', skills_kicker:'Skills', skills_title:'Solid foundations,<br>an <em>active curiosity.</em>', skill_python:'Machine learning, Flask, beginner Django and data processing.', skill_c:'Logic, data structures, algorithms and a Snake game.', skill_web:'HTML, CSS, JavaScript and responsive static interfaces.', skill_ai:'LangChain, Ollama, RAG, SQL, Matplotlib and ML experiments.', level_intermediate:'Intermediate', level_learning:'Developing', level_exploring:'Exploring', projects_kicker:'Selected work', projects_title:'Projects say<br><em>more than promises.</em>', projects_note:'A selection of work documenting my learning, from local AI to web interfaces.', project_build:'Personal project', project_collab:'Collaboration', project_ai_title:'Math & code AI tutor', project_ai_text:'A local assistant using Ollama and RAG to support exercises, with history and document analysis.', project_ml_title:'Summer notebook', project_ml_text:'Seven machine-learning and deep-learning mini-projects built from scratch in a collaborative course.', project_school_title:'Collège Jean Piaget website', project_school_text:'A complete website designed with a collaborator to present a school.', project_shop_title:'Online shop', project_shop_text:'An early experience designing a commerce interface with a cart and client-side interactions.', contact_kicker:'Contact', contact_title:'A project, a question,<br><em>an idea to share?</em>', contact_text:'The simplest way is to write to me. I enjoy conversations around programming, AI and web projects.', form_name:'Full name', form_email:'Email address', form_message:'Your message', form_send:'Prepare message', form_mailto:'Your mail app will open with a pre-filled message.', footer_note:'Personal portfolio · made with intention', footer_top:'Back to top ↑', assistant_title:'About Anbid', assistant_welcome:'I can quickly answer questions about the journey, skills, projects or contact.', assistant_placeholder:'Ask a question…', assistant_unknown:'I could not find that answer. Try a suggestion or email Anbid directly.'
         }
     };
 
-    const langToggleBtn = document.getElementById('lang-toggle');
-    let langueActuelle = localStorage.getItem('langue') || 'fr';
+    let language = localStorage.getItem('langue') || 'fr';
+    const $ = (selector) => document.querySelector(selector);
+    const $$ = (selector) => document.querySelectorAll(selector);
+    const langToggle = $('#lang-toggle');
+    const themeToggle = $('#theme-toggle');
+    const titleEl = $('#typewriter-title');
+    const textEl = $('#typewriter-text');
+    let typingRun = 0;
 
-    function appliquerLangue(langue) {
-        langueActuelle = langue;
-        localStorage.setItem('langue', langue);
-        document.documentElement.lang = langue;
-        if (langToggleBtn) langToggleBtn.textContent = langue.toUpperCase();
-
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const cle = el.getAttribute('data-i18n');
-            const traduction = TRADUCTIONS[langue][cle];
-            if (traduction === undefined) return;
-            if (traduction.includes('<')) {
-                el.innerHTML = traduction;
-            } else {
-                el.textContent = traduction;
-            }
+    function applyLanguage(nextLanguage, animate = false) {
+        language = nextLanguage;
+        localStorage.setItem('langue', language);
+        document.documentElement.lang = language;
+        langToggle.textContent = language === 'fr' ? 'EN' : 'FR';
+        $$('[data-i18n]').forEach((element) => {
+            const value = translations[language][element.dataset.i18n];
+            if (value === undefined) return;
+            element.innerHTML = value.includes('<') ? value : value;
         });
-
-        document.querySelectorAll('[data-i18n-title]').forEach(el => {
-            const cle = el.getAttribute('data-i18n-title');
-            if (TRADUCTIONS[langue][cle] !== undefined) el.title = TRADUCTIONS[langue][cle];
-        });
-
-        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-            const cle = el.getAttribute('data-i18n-placeholder');
-            if (TRADUCTIONS[langue][cle] !== undefined) el.placeholder = TRADUCTIONS[langue][cle];
-        });
-
-        // Texte d'en-tête : on relance la frappe dans la nouvelle langue si elle est en cours, sinon on remplace le texte
-        if (titleElement && textElement) {
-            if (titleElement.dataset.animating || textElement.dataset.animating) {
-                lancerFrappe(0);
-            } else {
-                titleElement.textContent = TRADUCTIONS[langue].hero_title;
-                textElement.textContent = TRADUCTIONS[langue].hero_text;
-            }
-        }
-
-        majBoutonTheme();
+        $$('[data-i18n-placeholder]').forEach((element) => { element.placeholder = translations[language][element.dataset.i18nPlaceholder]; });
+        updateThemeLabel();
+        renderSuggestions();
+        if (animate) startTyping(); else { titleEl.textContent = translations[language].hero_title; textEl.textContent = translations[language].hero_text; }
     }
 
-    if (langToggleBtn) {
-        langToggleBtn.addEventListener('click', () => {
-            appliquerLangue(langueActuelle === 'fr' ? 'en' : 'fr');
-        });
+    function startTyping() {
+        const run = ++typingRun;
+        const title = translations[language].hero_title;
+        const text = translations[language].hero_text;
+        titleEl.textContent = ''; textEl.textContent = '';
+        let i = 0;
+        const typeTitle = () => { if (run !== typingRun) return; titleEl.textContent = title.slice(0, ++i); if (i < title.length) setTimeout(typeTitle, 62); else setTimeout(typeText, 200); };
+        let j = 0;
+        const typeText = () => { if (run !== typingRun) return; textEl.textContent = text.slice(0, ++j); if (j < text.length) setTimeout(typeText, 20); };
+        setTimeout(typeTitle, 180);
     }
 
-    // Thème clair / sombre
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    if (localStorage.getItem('theme') === 'light') document.body.classList.add('light-theme');
+    function updateThemeLabel() { themeToggle.textContent = translations[language][document.body.classList.contains('dark') ? 'theme_light' : 'theme_dark']; }
+    if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+    langToggle.addEventListener('click', () => applyLanguage(language === 'fr' ? 'en' : 'fr', true));
+    themeToggle.addEventListener('click', () => { document.body.classList.toggle('dark'); localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light'); updateThemeLabel(); });
+    applyLanguage(language, false); startTyping();
 
-    function majBoutonTheme() {
-        if (!themeToggleBtn) return;
-        const cle = document.body.classList.contains('light-theme') ? 'theme_vers_sombre' : 'theme_vers_clair';
-        themeToggleBtn.setAttribute('data-i18n', cle);
-        themeToggleBtn.textContent = TRADUCTIONS[langueActuelle][cle];
-    }
+    const menuToggle = $('#menu-toggle'); const navPanel = $('#nav-panel');
+    menuToggle.addEventListener('click', () => { const open = navPanel.classList.toggle('open'); menuToggle.setAttribute('aria-expanded', String(open)); });
+    $$('#nav-panel a').forEach((link) => link.addEventListener('click', () => { navPanel.classList.remove('open'); menuToggle.setAttribute('aria-expanded', 'false'); }));
 
-    if (themeToggleBtn) {
-        themeToggleBtn.addEventListener('click', () => {
-            const clair = document.body.classList.toggle('light-theme');
-            localStorage.setItem('theme', clair ? 'light' : 'dark');
-            majBoutonTheme();
-        });
-    }
-    majBoutonTheme();
+    const backTop = $('#back-to-top');
+    window.addEventListener('scroll', () => backTop.classList.toggle('visible', window.scrollY > 500), { passive:true });
+    backTop.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
 
-    if (langueActuelle !== 'fr') appliquerLangue(langueActuelle);
-    lancerFrappe(300);
+    $('#contactForm').addEventListener('submit', (event) => { event.preventDefault(); const form = event.currentTarget; const data = new FormData(form); const subject = encodeURIComponent(`Portfolio — ${data.get('name')}`); const body = encodeURIComponent(`${data.get('message')}\n\n${data.get('name')} (${data.get('email')})`); window.location.href = `mailto:salifouanbid@gmail.com?subject=${subject}&body=${body}`; $('#formStatus').textContent = translations[language].form_mailto; });
 
-    // Bouton "haut de page"
-    const backToTopBtn = document.getElementById('backToTop');
-    if (backToTopBtn) {
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+    const faq = [
+        { keys:['parcours','cpge','études','journey','school','studies'], fr:'Anbid est en classe préparatoire à l’IMSP au Bénin, spécialisé en mathématiques et informatique. Sa première année a été réussie sans rattrapage.', en:'Anbid is studying in a preparatory class at IMSP in Benin, focusing on mathematics and computer science. He completed his first year without resits.' },
+        { keys:['compétence','python','javascript','html','css','skill'], fr:'Ses compétences couvrent C, Python, le web, Flask, LangChain, Ollama, SQL et la visualisation de données.', en:'His skills cover C, Python, web development, Flask, LangChain, Ollama, SQL and data visualisation.' },
+        { keys:['projet','github','agent','project'], fr:'Ses projets incluent un tuteur IA local, sept mini-projets de machine learning, un site scolaire et une boutique en ligne.', en:'His projects include a local AI tutor, seven machine-learning mini-projects, a school website and an online shop.' },
+        { keys:['contact','email','mail','joindre','reach'], fr:'Vous pouvez lui écrire à salifouanbid@gmail.com ou utiliser le formulaire de contact.', en:'You can reach him at salifouanbid@gmail.com or use the contact form.' },
+        { keys:['cv','curriculum','download','télécharger'], fr:'Le CV est disponible dans le bouton de téléchargement en haut de page.', en:'The CV is available through the download button near the top of the page.' }
+    ];
+    const suggestions = { fr:['Son parcours ?','Ses compétences ?','Ses projets ?','Le contacter ?'], en:['His journey?','His skills?','His projects?','Contact him?'] };
+    const assistant = $('#assistant'); const messages = $('#assistant-messages'); const input = $('#assistant-input');
+    function addMessage(text, kind) { const message = document.createElement('p'); message.className = `assistant-msg ${kind}`; message.textContent = text; messages.appendChild(message); messages.scrollTop = messages.scrollHeight; }
+    function answer(question) { const normalized = question.toLowerCase(); const match = faq.map(item => ({ item, score:item.keys.filter(key => normalized.includes(key)).length })).sort((a,b) => b.score-a.score)[0]; return match && match.score ? match.item[language] : translations[language].assistant_unknown; }
+    function askQuestion(question) { if (!question.trim()) return; addMessage(question, 'user'); input.value = ''; setTimeout(() => addMessage(answer(question), 'bot'), 220); }
+    function renderSuggestions() { const container = $('#assistant-suggestions'); container.innerHTML = ''; suggestions[language].forEach((suggestion) => { const button = document.createElement('button'); button.textContent = suggestion; button.addEventListener('click', () => askQuestion(suggestion)); container.appendChild(button); }); }
+    $('#assistant-toggle').addEventListener('click', () => assistant.classList.toggle('open')); $('#assistant-close').addEventListener('click', () => assistant.classList.remove('open')); $('#assistant-send').addEventListener('click', () => askQuestion(input.value)); input.addEventListener('keydown', (event) => { if (event.key === 'Enter') askQuestion(input.value); }); renderSuggestions();
 
-        const toggleBackToTop = () => {
-            backToTopBtn.classList.toggle('visible', window.scrollY > 400);
-        };
-        toggleBackToTop();
-        window.addEventListener('scroll', toggleBackToTop);
-    }
+    setTimeout(() => { const button = document.createElement('a'); button.href = 'https://wa.me/2290155873800?text=' + encodeURIComponent(language === 'fr' ? 'Bonjour Anbid, j’ai vu ton portfolio et j’aimerais échanger avec toi.' : 'Hello Anbid, I saw your portfolio and would like to get in touch.'); button.target = '_blank'; button.rel = 'noopener'; button.className = 'whatsapp-link'; button.textContent = 'WhatsApp'; button.style.cssText = 'position:fixed;left:22px;bottom:24px;z-index:12;padding:10px 13px;border:1px solid #2c9d61;background:#1f7e4d;color:#fff;text-decoration:none;font:500 .62rem var(--mono);letter-spacing:.04em;box-shadow:var(--shadow)'; document.body.appendChild(button); }, 700);
 });
-
-/* Bouton flottant WhatsApp — coordonnées personnelles d'Anbid */
-const SITE_SHARED = {
-  contact: {
-    whatsapp: "2290155873800"
-  }
-};
- setTimeout(() => {
-    const langueWa = localStorage.getItem('langue') || 'fr';
-    const waNumber = (SITE_SHARED.contact.whatsapp || "").replace(/[^0-9+]/g, '');
-    const waMessage = encodeURIComponent(langueWa === 'en'
-      ? "Hello Anbid, I saw your portfolio and would like to get in touch."
-      : "Bonjour Anbid, j'ai vu ton portfolio et j'aimerais échanger avec toi.");
-    const waUrl = waNumber ? `https://wa.me/${waNumber}?text=${waMessage}` : '#';
-
-    const waBtn = document.createElement('a');
-    waBtn.href = waUrl;
-    waBtn.className = 'whatsapp-float';
-    waBtn.setAttribute('aria-label', 'Nous contacter sur WhatsApp');
-    waBtn.setAttribute('target', '_blank');
-    waBtn.setAttribute('rel', 'noopener noreferrer');
-    waBtn.innerHTML = `<svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>`;
-    document.body.appendChild(waBtn);
-    requestAnimationFrame(() => waBtn.classList.add('is-visible'));
-  }, 1200);
-
-// ==========================================
-// 7. EFFET DE TILT 3D AU SURVOL (cartes projets & compétences)
-//    — suit la position du curseur, désactivé sur écrans tactiles
-// ==========================================
-(function () {
-    const supportsHoverTilt = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    if (!supportsHoverTilt) return;
-
-    const tiltCards = document.querySelectorAll('.project-card, .skill-card');
-
-    tiltCards.forEach((card) => {
-        card.style.willChange = 'transform';
-
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width - 0.5;
-            const y = (e.clientY - rect.top) / rect.height - 0.5;
-            const maxTilt = 5; // degrés
-            const rotateX = (-y * maxTilt).toFixed(2);
-            const rotateY = (x * maxTilt).toFixed(2);
-            card.style.transform = `translateY(-8px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = '';
-        });
-    });
-})();
-
-// Diaporama cahier de vacances (une image toutes les 1s)
-(function () {
-    const sliders = document.querySelectorAll('.vacances-slider');
-    if (!sliders.length) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    sliders.forEach((slider) => {
-        const slides = slider.querySelectorAll('.vacances-slide');
-        if (slides.length < 2 || prefersReducedMotion) return;
-
-        let current = 0;
-        setInterval(() => {
-            slides[current].classList.remove('is-active');
-            current = (current + 1) % slides.length;
-            slides[current].classList.add('is-active');
-        }, 3000);
-    });
-})();

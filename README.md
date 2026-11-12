@@ -1,40 +1,45 @@
 # Portfolio — Anbid Salifou
 
-Site personnel statique (HTML, CSS, JavaScript), sans framework ni étape de build.
-Il présente mon parcours, mes compétences et mes projets, en français et en anglais, avec un thème clair et un thème sombre.
+Portfolio personnel statique en HTML, CSS et JavaScript, publié avec GitHub Pages.
+
+La version actuelle privilégie une direction éditoriale sobre et durable : typographie contrastée, grille structurée, couleurs restreintes et animations limitées à l'essentiel. L'emplacement portrait dans le hero est volontairement vide afin de recevoir une future photo professionnelle sans modifier la mise en page.
+
+## Fonctionnalités
+
+- Présentation bilingue français / anglais avec préférence conservée dans le navigateur
+- Thème clair / sombre
+- Effet machine à écrire discret dans le hero
+- Parcours académique, compétences et projets avec liens GitHub vérifiés
+- Aperçus visuels des projets sans photo personnelle
+- Téléchargement du CV PDF
+- Formulaire de contact qui prépare un e-mail dans le client de messagerie
+- Assistant FAQ local, sans API ni collecte de données
+- Boutons LinkedIn, GitHub, e-mail, WhatsApp et retour en haut
+- Navigation responsive sur mobile
 
 ## Structure
 
 ```
-index.html       contenu de la page
-style.css        mise en forme (thèmes clair et sombre via variables CSS)
-script.js        navigation, thème, traductions FR/EN, formulaire, diaporamas
+index.html       structure et contenu de la page
+style.css        système visuel, responsive et thèmes
+script.js        traductions, thème, frappe, FAQ et interactions
 images/          captures d'écran des projets
-assets/          CV en PDF
+assets/          CV PDF
 ```
 
-## Lancer le site en local
+## Lancer localement
 
-Ouvrir `index.html` dans un navigateur, ou servir le dossier :
-
-```
-python -m http.server 8000
+```bash
+python3 -m http.server 8000
 ```
 
-puis aller sur http://localhost:8000.
+Puis ouvrir <http://localhost:8000>.
 
-## Modifier le contenu
+## Modifier la photo plus tard
 
-- **Textes** : chaque texte traduisible porte un attribut `data-i18n="clé"` dans `index.html`. Les traductions FR et EN se trouvent dans l'objet `TRADUCTIONS` de `script.js` : modifier les deux langues en même temps.
-- **Projets** : copier une carte `project-card` dans `index.html` et ajouter ses clés de titre/description dans `TRADUCTIONS`.
-- **Couleurs** : variables au début de `style.css` (`:root` pour le thème sombre, `.light-theme` pour le clair).
-
-## Formulaire de contact
-
-Sans configuration, l'envoi ouvre l'application de messagerie avec le message prérempli.
-Pour recevoir les messages directement, créer un formulaire sur [Formspree](https://formspree.io) et renseigner son URL dans l'attribut `data-endpoint` du formulaire (`index.html`).
+Le bloc `.portrait-slot` dans `index.html` est la zone réservée. Pour ajouter une photo, remplacer son contenu par une balise `<img>` et conserver le conteneur afin de préserver les proportions et les repères graphiques.
 
 ## Déploiement
 
-Le site est publié depuis la branche `main` avec GitHub Pages (Settings → Pages → Deploy from a branch → `main` / racine).
-Les noms de fichiers sont sensibles à la casse sur GitHub Pages : `assets/cv-anbid-salifou.pdf` doit être écrit exactement ainsi dans `index.html`.
+Le dépôt est publié depuis la branche `main` avec GitHub Pages :
+<https://salifouanbid.github.io/monportfoliopro/>

@@ -3,310 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio d'Anbid Salifou : mathématiques, informatique, IA et projets web.">
+    <meta name="theme-color" content="#f4f1ea">
     <title>Anbid Salifou — Portfolio</title>
-    <meta name="description" content="Portfolio d'Anbid Salifou, étudiant en classe préparatoire MPSI-PCSI-Info à l'IMSP (Bénin) : projets en C, Python, web et intelligence artificielle.">
-    <meta name="theme-color" content="#060a14">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23060a14'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' font-weight='700' text-anchor='middle' fill='%237db2ff'%3EA.%3C/text%3E%3C/svg%3E">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b2638'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='30' font-weight='700' text-anchor='middle' fill='%23d6a85f'%3EAS%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <nav class="nav-container">
-            <div class="logo">ANBID<span>.</span></div>
-            <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu" aria-expanded="false">
-                <span></span><span></span><span></span>
-            </button>
-            <ul id="nav-links">
-                <li><a href="#home" data-i18n="nav_accueil">Accueil</a></li>
-                <li><a href="#academic" data-i18n="nav_parcours">Parcours</a></li>
-                <li><a href="#skills" data-i18n="nav_competences">Compétences</a></li>
-                <li><a href="#projects" data-i18n="nav_projets">Projets</a></li>
-                <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
-            </ul>
-            <div class="nav-actions">
-                <button id="lang-toggle" class="theme-toggle-btn" data-i18n-title="changer_langue" title="Changer la langue">FR</button>
-                <button id="theme-toggle" class="theme-toggle-btn" data-i18n="theme_vers_clair">Mode clair</button>
+    <header class="site-header">
+        <nav class="nav-shell" aria-label="Navigation principale">
+            <a class="wordmark" href="#home" aria-label="Anbid Salifou — accueil">ANBID<span>.</span></a>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span></button>
+            <div class="nav-panel" id="nav-panel">
+                <a href="#about" data-i18n="nav_about">À propos</a>
+                <a href="#journey" data-i18n="nav_journey">Parcours</a>
+                <a href="#skills" data-i18n="nav_skills">Compétences</a>
+                <a href="#projects" data-i18n="nav_projects">Projets</a>
+                <a href="#contact" data-i18n="nav_contact">Contact</a>
+            </div>
+            <div class="nav-tools">
+                <button class="text-control" id="lang-toggle" type="button" title="Changer de langue">EN</button>
+                <button class="text-control" id="theme-toggle" type="button" data-i18n="theme_light">Mode clair</button>
             </div>
         </nav>
     </header>
 
     <main>
-        <section id="home" class="hero">
-            <div class="hero-content">
-                <span class="badge" data-i18n="hero_badge">Étudiant en CPGE</span>
-                <h1><span id="typewriter-title"></span></h1>
-                <p id="typewriter-text"></p>
-                <noscript><p>Étudiant en classe préparatoire (MPSI-PCSI-Info) à l'IMSP, au Bénin. Je programme en C et en Python, et je construis des projets web et d'IA.</p></noscript>
-                <div class="hero-btns">
-                    <a href="#projects" class="btn-primary" data-i18n="hero_btn_projets">Voir mes projets</a>
-                    <a href="#contact" class="btn-secondary" data-i18n="hero_btn_contact">Me contacter</a>
-                    <a href="https://www.linkedin.com/in/anbid-salifou-656780379/" target="_blank" rel="noopener noreferrer" class="btn-secondary">LinkedIn</a>
-                    <a href="https://github.com/salifouanbid" target="_blank" rel="noopener noreferrer" class="btn-secondary">GitHub</a>
+        <section class="hero" id="home">
+            <div class="hero-copy">
+                <p class="eyebrow"><span class="eyebrow-line"></span><span data-i18n="hero_eyebrow">Étudiant · développeur · curieux</span></p>
+                <h1><span id="typewriter-title">Anbid Salifou</span><span class="type-cursor" aria-hidden="true"></span></h1>
+                <p class="hero-lede" id="typewriter-text">Étudiant en classe préparatoire à l'IMSP, je construis des projets en C, Python, web et intelligence artificielle.</p>
+                <div class="hero-actions">
+                    <a class="button button-dark" href="#projects" data-i18n="hero_projects">Découvrir mes projets</a>
+                    <a class="button button-outline" href="assets/cv-anbid-salifou.pdf" download data-i18n="hero_cv">Télécharger mon CV</a>
+                </div>
+                <div class="hero-meta">
+                    <span data-i18n="hero_location">Basé au Bénin</span><span class="meta-dot"></span><a href="mailto:salifouanbid@gmail.com">salifouanbid@gmail.com</a>
+                </div>
+            </div>
+            <div class="portrait-slot" aria-label="Emplacement réservé pour une future photo">
+                <div class="portrait-inner">
+                    <span class="portrait-number">01</span>
+                    <span class="portrait-label" data-i18n="portrait_placeholder">Portrait à ajouter</span>
+                    <span class="portrait-note" data-i18n="portrait_note">Un espace volontairement laissé libre pour une photo professionnelle.</span>
+                </div>
+                <span class="portrait-caption" data-i18n="portrait_caption">Espace réservé · pas de photo intégrée</span>
+            </div>
+        </section>
+
+        <section class="proof-bar" aria-label="Points forts">
+            <div><strong>14,42/20</strong><span data-i18n="proof_average">moyenne en première année de CPGE</span></div>
+            <div><strong>CPGE</strong><span data-i18n="proof_studies">mathématiques & informatique</span></div>
+            <div><strong>IA</strong><span data-i18n="proof_club">membre du club IA de l'IMSP</span></div>
+            <div><strong>2027</strong><span data-i18n="proof_goal">objectif école d'ingénieurs</span></div>
+        </section>
+
+        <section class="section about-section" id="about">
+            <div class="section-intro"><p class="section-kicker">01 / <span data-i18n="about_kicker">Profil</span></p><h2 data-i18n="about_title">Apprendre sérieusement.<br><em>Construire concrètement.</em></h2></div>
+            <div class="about-content">
+                <p class="lead" data-i18n="about_lead">Je m'appelle Soule Salifou Ola Anbid. Je développe un profil à la rencontre des mathématiques, de la programmation et de l'intelligence artificielle.</p>
+                <p data-i18n="about_text">Lauréat d'une bourse d'excellence au Bénin et étudiant à l'IMSP, j'aime comprendre les systèmes en profondeur avant de les transformer en projets utiles. Ce portfolio rassemble mes expériences, mes apprentissages et les réalisations qui montrent mon évolution.</p>
+                <div class="about-details">
+                    <div><span data-i18n="detail_name_label">Nom</span><strong>Soule Salifou Ola Anbid</strong></div>
+                    <div><span data-i18n="detail_languages_label">Langues</span><strong data-i18n="detail_languages">Français · Anglais B1</strong></div>
+                    <div><span data-i18n="detail_focus_label">Focus actuel</span><strong data-i18n="detail_focus">Maths · Python · IA</strong></div>
+                    <div><span data-i18n="detail_availability_label">Échange</span><strong data-i18n="detail_availability">Ouvert aux projets</strong></div>
                 </div>
             </div>
         </section>
 
-        <div class="strengths-strip">
-            <div class="strength-item" data-i18n="strength_1">Boursier national</div>
-            <div class="strength-item" data-i18n="strength_2">Club IA de l'IMSP</div>
-            <div class="strength-item" data-i18n="strength_3">Prépa MPSI-PCSI-Info</div>
-            <div class="strength-item" data-i18n="strength_4">Objectif : école d'ingénieurs en IA (ECC 2027)</div>
-        </div>
-
-        <section id="academic" class="academic-section">
-            <h2 class="section-title" data-i18n="parcours_titre">Mon parcours</h2>
-
-            <div class="achievement-highlight">
-                <div class="achievement-text">
-                    <h3 data-i18n="achievement_titre">1ère année de CPGE réussie sans rattrapage</h3>
-                    <p data-i18n="achievement_desc">Moyenne générale de <strong>14,42/20</strong></p>
+        <section class="section journey-section" id="journey">
+            <div class="section-heading"><p class="section-kicker">02 / <span data-i18n="journey_kicker">Parcours</span></p><h2 data-i18n="journey_title">Une trajectoire fondée<br>sur la <em>rigueur.</em></h2></div>
+            <div class="journey-layout">
+                <div class="achievement-card"><span class="card-index">01</span><p class="card-label" data-i18n="achievement_label">Résultat marquant</p><h3 data-i18n="achievement_title">Première année de CPGE réussie sans rattrapage</h3><strong>14,42<span>/20</span></strong><p data-i18n="achievement_text">Une année exigeante en mathématiques, physique et informatique, menée avec régularité.</p></div>
+                <div class="timeline">
+                    <article><span>2024</span><div><h3 data-i18n="timeline_bac_title">Baccalauréat — Mention Très Bien</h3><p data-i18n="timeline_bac_text">Moyenne de 15 en classe de terminale et troisième place au niveau national.</p></div></article>
+                    <article><span>2025</span><div><h3 data-i18n="timeline_cpge_title">IMSP — Classe préparatoire</h3><p data-i18n="timeline_cpge_text">Spécialisation progressive en mathématiques, informatique et résolution de problèmes.</p></div></article>
+                    <article><span data-i18n="timeline_now_date">Aujourd'hui</span><div><h3 data-i18n="timeline_now_title">Construire la suite</h3><p data-i18n="timeline_now_text">Préparer une école d'ingénieurs en intelligence artificielle tout en développant des projets personnels.</p></div></article>
                 </div>
             </div>
+            <div class="engagements"><span data-i18n="engagements_label">Aussi</span><p data-i18n="engagements_text">Club d'intelligence artificielle · club de football · apprentissage autonome</p></div>
+        </section>
 
-            <div class="timeline-container">
-                <div class="timeline-item">
-                    <div class="timeline-content" data-i18n="timeline_bourse">
-                        Lauréat de la bourse d'excellence du baccalauréat au Bénin.
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content" data-i18n="timeline_bac">
-                        Mention Très Bien au Baccalauréat béninois, avec une moyenne de 15 en classe de terminale indépendamment des examens nationaux et une 3e place à l'appui.
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content" data-i18n="timeline_cpge_desc">
-                        <p>Actuellement en classe préparatoire aux grandes écoles (CPGE),</p>
-                        <p>je me spécialise en mathématiques et informatique.</p>
-                    </div>
-                </div>
-            </div>
-
-            <h3 class="section-title" data-i18n="antecedents_titre">Antécédents académiques</h3>
-            <div class="timeline-container">
-                <div class="timeline-item">
-                    <div class="timeline-content" data-i18n="timeline_1ere">
-                        Moyenne en 1ère C : 14,73
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content" data-i18n="timeline_2nde">
-                        Moyenne en Seconde C : 15,89 avec une deuxième place, témoignant de la rigueur, de la discipline et de l'excellence.
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content" data-i18n="timeline_bepc">
-                        Moyenne de 16,38 au BEPC béninois.
-                    </div>
-                </div>
-            </div>
-
-            <h4 class="section-title" data-i18n="engagements_titre">Engagements</h4>
-            <div class="timeline-container">
-                <div class="timeline-item">
-                    <div class="timeline-content" data-i18n="engagement_sport">
-                        Engagement sportif : membre actif du club de football de l'Institut de Mathématiques et de Sciences Physiques (IMSP).
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content" data-i18n="engagement_sci">
-                        Engagement scientifique : membre actif du club d'intelligence artificielle de l'IMSP.
-                    </div>
-                </div>
-            </div>
-
-            <h4 class="section-title" data-i18n="langues_titre">Langues</h4>
-            <div class="timeline-container">
-                <div class="timeline-item">
-                    <div class="timeline-content" data-i18n="langue_fr">
-                        Français : niveau intermédiaire
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content" data-i18n="langue_en">
-                        Anglais : niveau B1
-                    </div>
-                </div>
+        <section class="section skills-section" id="skills">
+            <div class="section-heading"><p class="section-kicker">03 / <span data-i18n="skills_kicker">Compétences</span></p><h2 data-i18n="skills_title">Des bases solides,<br>une <em>curiosité active.</em></h2></div>
+            <div class="skills-list">
+                <article class="skill-row"><span class="skill-number">01</span><h3>Python</h3><p data-i18n="skill_python">Machine learning, Flask, Django (débutant), traitement de données.</p><span class="skill-level" data-i18n="level_intermediate">Intermédiaire</span></article>
+                <article class="skill-row"><span class="skill-number">02</span><h3>C</h3><p data-i18n="skill_c">Logique, structures, algorithmique et développement d'un jeu Snake.</p><span class="skill-level" data-i18n="level_intermediate">Intermédiaire</span></article>
+                <article class="skill-row"><span class="skill-number">03</span><h3>Web</h3><p data-i18n="skill_web">HTML, CSS, JavaScript et interfaces statiques responsive.</p><span class="skill-level" data-i18n="level_learning">En progression</span></article>
+                <article class="skill-row"><span class="skill-number">04</span><h3>IA & données</h3><p data-i18n="skill_ai">LangChain, Ollama, RAG, SQL, Matplotlib et expérimentation ML.</p><span class="skill-level" data-i18n="level_exploring">Exploration</span></article>
             </div>
         </section>
 
-        <section id="about" class="about-section">
-            <div class="glass-card about-container">
-                <h2 class="section-title" data-i18n="about_titre">À propos de moi</h2>
-                <p data-i18n="about_texte">Lauréat de la bourse d'excellence au Bénin, je cultive la rigueur et la discipline. Entre le football et l'intelligence artificielle à l'IMSP, je forge mon profil technique au quotidien.</p>
-
-                <div class="personal-info">
-                    <div class="info-item" data-i18n="info_nom"><strong>Nom</strong> SOULE SALIFOU Ola Anbid</div>
-                    <div class="info-item" data-i18n="info_email"><strong>Email</strong> salifouanbid@gmail.com</div>
-                    <div class="info-item" data-i18n="info_langues"><strong>Langues</strong> Français, Anglais (B1)</div>
-                    <div class="info-item" data-i18n="info_age"><strong>Âge</strong> 17 ans</div>
-                    <div class="info-item" data-i18n="info_lieu"><strong>Localisation</strong> Bénin</div>
-                </div>
-
-                <div class="cv-section-wrapper">
-                    <div class="cv-download-btn">
-                        <p style="font-size: 0.9rem; color: var(--text-dim);" data-i18n="cv_intro">Mon parcours détaillé est disponible ici :</p>
-                        <a href="assets/cv-anbid-salifou.pdf" download data-i18n="cv_bouton">Télécharger mon CV (PDF)</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="skills" class="skills-section">
-            <h2 class="section-title" data-i18n="competences_titre">Mes Compétences</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <h3 data-i18n="stk_langages_titre">Langages</h3>
-                    <ul class="stack-list">
-                        <li><strong>C</strong> <span data-i18n="stk_c">intermédiaire, jeu Snake</span></li>
-                        <li><strong>Python</strong> <span data-i18n="stk_python">machine learning : intermédiaire · Django : débutant</span></li>
-                        <li><strong>JavaScript</strong> <span data-i18n="stk_js">débutant à intermédiaire</span></li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <h3 data-i18n="stk_web_titre">Web</h3>
-                    <ul class="stack-list">
-                        <li><strong>HTML &amp; CSS</strong> <span data-i18n="stk_html">site du collège, boutique en ligne, ce portfolio</span></li>
-                        <li><strong>Flask</strong> <span data-i18n="stk_flask">interface du tuteur IA</span></li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <h3 data-i18n="stk_ia_titre">IA &amp; données</h3>
-                    <ul class="stack-list">
-                        <li><strong>Machine learning</strong> <span data-i18n="stk_ml">sept mini-projets du cahier de vacances</span></li>
-                        <li><strong>LangChain · Ollama</strong> <span data-i18n="stk_rag">assistant local avec RAG</span></li>
-                        <li><strong>Matplotlib · SQL</strong> <span data-i18n="stk_data">visualisation et bases de données</span></li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <h3 data-i18n="stk_outils_titre">Outils</h3>
-                    <ul class="stack-list">
-                        <li><strong>Pack Office</strong> <span data-i18n="stk_office">utilisation avancée</span></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects" class="projects-section">
-            <h2 class="section-title" data-i18n="projets_titre">Mes Projets</h2>
+        <section class="section projects-section" id="projects">
+            <div class="section-heading projects-heading"><div><p class="section-kicker">04 / <span data-i18n="projects_kicker">Sélection</span></p><h2 data-i18n="projects_title">Les projets en disent<br><em>plus que les promesses.</em></h2></div><p class="heading-note" data-i18n="projects_note">Une sélection de travaux qui documentent mon apprentissage, de l'IA locale aux interfaces web.</p></div>
             <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-img project-img--agent">
-                        <span class="project-pill">Agent IA</span>
-                        <img src="images/tuteur-ia.jpg" alt="Interface du Tuteur IA en train de répondre à une question de mathématiques" loading="lazy">
-                    </div>
-                    <div class="project-info">
-                        <h3 data-i18n="projet_agent_titre">Tuteur IA de Mathématiques & Code</h3>
-                        <p data-i18n="projet_agent_desc">Assistant local (Ollama + RAG) pour aider aux exercices, avec historique de conversation et analyse d'images/documents.</p>
-                        <div class="tags"><span>Python</span><span>Flask</span><span>LangChain</span></div>
-                        <a href="https://github.com/salifouanbid/Math-agent" class="project-link" data-i18n="projet_lien_github">Voir le dépôt GitHub</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-img project-img--vacances">
-                        <span class="project-pill">Cahier de Vacances</span>
-                        <div class="vacances-slider">
-                            <img src="images/image.png" alt="Cahier de vacances — projet 1" class="vacances-slide is-active" loading="lazy">
-                            <img src="images/image-1.png" alt="Cahier de vacances — projet 2" class="vacances-slide" loading="lazy">
-                            <img src="images/image-2.png" alt="Cahier de vacances — projet 3" class="vacances-slide" loading="lazy">
-                            <img src="images/image-3.png" alt="Cahier de vacances — projet 4" class="vacances-slide" loading="lazy">
-                            <img src="images/image-4.png" alt="Cahier de vacances — projet 5" class="vacances-slide" loading="lazy">
-                            <img src="images/image-5.png" alt="Cahier de vacances — projet 6" class="vacances-slide" loading="lazy">
-                            <img src="images/imae_6.png" alt="Cahier de vacances — projet 7" class="vacances-slide" loading="lazy">
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3 data-i18n="projet_vacances_titre">Cahier de Vacances — 7 mini-projets Machine Learning</h3>
-                        <p data-i18n="projet_vacances_desc">7 projets conçus de A à Z avec des technologies nouvelles, dans le cadre d'une formation à distance avec Guillaume Saint-Cyr, en collaboration internationale autour du machine learning et du deep learning.</p>
-                        <div class="tags"><span>Python</span><span>Flask</span><span>LangChain</span><span>SQL</span><span>Matplotlib</span></div>
-                        <a href="https://github.com/salifouanbid/Cahier-Vacances-2026" class="project-link" data-i18n="projet_lien_github">Voir le dépôt GitHub</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-img project-img--college">
-                        <span class="project-pill">Site Web</span>
-                        <div class="vacances-slider">
-                            <img src="images/jp-im-1.jpg" alt="Site du Collège Jean Piaget — page 1" class="vacances-slide is-active" loading="lazy">
-                            <img src="images/jp-im-2.jpg" alt="Site du Collège Jean Piaget — page 2" class="vacances-slide" loading="lazy">
-                            <img src="images/jp-im-3.jpg" alt="Site du Collège Jean Piaget — page 3" class="vacances-slide" loading="lazy">
-                            <img src="images/jp-im-4.jpg" alt="Site du Collège Jean Piaget — page 4" class="vacances-slide" loading="lazy">
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3 data-i18n="projet_college_titre">Site du Collège Jean Piaget</h3>
-                        <p data-i18n="projet_college_desc">Site complet développé en collaboration avec un ami pour l'établissement.</p>
-                        <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Collaboration</span></div>
-                        <a href="https://github.com/salifouanbid/New-ProjectJP" class="project-link" data-i18n="projet_lien_github">Voir le dépôt GitHub</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-img project-img--shop">
-                        <span class="project-pill">Site Web</span>
-                    </div>
-                    <div class="project-info">
-                        <h3 data-i18n="projet_boutique_titre">Boutique en ligne</h3>
-                        <p data-i18n="projet_boutique_desc">Utiliser les technologies web pour créer une boutique en ligne fonctionnelle.</p>
-                        <div class="tags"><span>JavaScript</span><span>HTML</span><span>CSS</span></div>
-                        <a href="https://github.com/salifouanbid/Boutique-en-ligne" class="project-link" data-i18n="projet_lien_github">Voir le dépôt GitHub</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-img project-img--snake-c">
-                        <span class="project-pill">Jeu — C</span>
-                    </div>
-                    <div class="project-info">
-                        <h3 data-i18n="projet_snake_titre">Jeu Snake</h3>
-                        <p data-i18n="projet_snake_desc">Recréation du jeu classique du serpent, logique de collision et score en temps réel.</p>
-                        <div class="tags"><span>Langage C</span></div>
-                        <a href="https://github.com/salifouanbid/Snake-Game" class="project-link" data-i18n="projet_lien_github">Voir le dépôt GitHub</a>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-img project-img--web">
-                        <span class="project-pill">Site Web</span>
-                    </div>
-                    <div class="project-info">
-                        <h3 data-i18n="projet_portfolio_titre">Ce portfolio</h3>
-                        <p data-i18n="projet_portfolio_desc">Site statique en HTML, CSS et JavaScript, bilingue (français / anglais) avec thème clair et sombre.</p>
-                        <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
-                        <a href="https://github.com/salifouanbid/monportfoliopro" class="project-link" data-i18n="projet_lien_github">Voir le dépôt GitHub</a>
-                    </div>
-                </div>
+                <article class="project-card project-card-featured"><div class="project-visual visual-ai"><img class="project-shot" src="images/tuteur-ia.jpg" alt="Aperçu du tuteur IA" loading="lazy"><span class="project-category">01 / IA</span><div class="visual-mark">RAG<span>+</span></div></div><div class="project-body"><p class="project-type" data-i18n="project_build">Projet personnel</p><h3 data-i18n="project_ai_title">Tuteur IA de mathématiques & code</h3><p data-i18n="project_ai_text">Un assistant local basé sur Ollama et RAG pour accompagner les exercices, avec historique et analyse de documents.</p><div class="project-footer"><div class="tags"><span>Python</span><span>Flask</span><span>LangChain</span></div><a href="https://github.com/salifouanbid/Math-agent" target="_blank" rel="noopener" aria-label="Math-agent sur GitHub">↗</a></div></div></article>
+                <article class="project-card"><div class="project-visual visual-notebook"><img class="project-shot" src="images/image.png" alt="Aperçu d’un mini-projet de machine learning" loading="lazy"><span class="project-category">02 / DATA</span><div class="mini-chart"><i></i><i></i><i></i><i></i><i></i></div><span class="visual-caption">07 experiments</span></div><div class="project-body"><p class="project-type" data-i18n="project_build">Projet personnel</p><h3 data-i18n="project_ml_title">Cahier de vacances</h3><p data-i18n="project_ml_text">Sept mini-projets de machine learning et deep learning construits de A à Z dans une formation collaborative.</p><div class="project-footer"><div class="tags"><span>Python</span><span>ML</span><span>SQL</span></div><a href="https://github.com/salifouanbid/Cahier-Vacances-2026" target="_blank" rel="noopener" aria-label="Cahier de Vacances sur GitHub">↗</a></div></div></article>
+                <article class="project-card"><div class="project-visual visual-school"><img class="project-shot" src="images/jp-im-1.jpg" alt="Aperçu du site du Collège Jean Piaget" loading="lazy"><span class="project-category">03 / WEB</span><div class="school-window"><b>JP</b><span>education</span><em></em><em></em><em></em></div></div><div class="project-body"><p class="project-type" data-i18n="project_collab">Collaboration</p><h3 data-i18n="project_school_title">Site du Collège Jean Piaget</h3><p data-i18n="project_school_text">Un site complet conçu avec un collaborateur pour présenter un établissement scolaire.</p><div class="project-footer"><div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div><a href="https://github.com/salifouanbid/Site-JeanPiaget" target="_blank" rel="noopener" aria-label="Site Jean Piaget sur GitHub">↗</a></div></div></article>
+                <article class="project-card"><div class="project-visual visual-shop"><span class="project-category">04 / WEB</span><div class="shop-lines"><span></span><span></span><span></span></div></div><div class="project-body"><p class="project-type" data-i18n="project_build">Projet personnel</p><h3 data-i18n="project_shop_title">Boutique en ligne</h3><p data-i18n="project_shop_text">Une première expérience de conception d'une interface de commerce avec panier et interactions côté client.</p><div class="project-footer"><div class="tags"><span>JavaScript</span><span>HTML</span><span>CSS</span></div><a href="https://github.com/salifouanbid/Boutique_de_ventes_en_ligne" target="_blank" rel="noopener" aria-label="Boutique en ligne sur GitHub">↗</a></div></div></article>
             </div>
         </section>
 
-        <section id="contact" class="contact-section">
-            <div class="glass-card contact-container">
-                <div class="contact-text">
-                    <h2 data-i18n="contact_titre">Contactez-moi</h2>
-                    <p data-i18n="contact_texte">Une suggestion ou un projet ? Parlons-en.</p>
-                    <ul class="contact-list">
-                        <li data-i18n="contact_pays">Bénin</li>
-                        <li data-i18n="contact_tel">+229 0155873800</li>
-                        <li><a href="mailto:salifouanbid@gmail.com">salifouanbid@gmail.com</a></li>
-                    </ul>
-                </div>
-                <form class="contact-form" id="contactForm" data-endpoint="">
-                    <input type="text" name="name" data-i18n-placeholder="form_nom" placeholder="Nom complet" class="input" required>
-                    <input type="email" name="email" class="input" data-i18n-placeholder="form_email" placeholder="Votre Email" required>
-                    <textarea name="message" data-i18n-placeholder="form_message" placeholder="Votre message..." class="input" required></textarea>
-                    <button type="submit" class="btn-primary" data-i18n="form_envoyer">Envoyer le message</button>
-                    <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
-                </form>
-            </div>
+        <section class="section contact-section" id="contact">
+            <div class="contact-panel"><div class="contact-copy"><p class="section-kicker">05 / <span data-i18n="contact_kicker">Contact</span></p><h2 data-i18n="contact_title">Un projet, une question,<br><em>une idée à partager ?</em></h2><p data-i18n="contact_text">Le plus simple est de m'écrire. Je réponds avec plaisir aux échanges autour de la programmation, de l'IA et des projets web.</p><div class="contact-links"><a href="mailto:salifouanbid@gmail.com">salifouanbid@gmail.com</a><a href="https://www.linkedin.com/in/anbid-salifou-656780379/" target="_blank" rel="noopener">LinkedIn ↗</a><a href="https://github.com/salifouanbid" target="_blank" rel="noopener">GitHub ↗</a></div></div><form class="contact-form" id="contactForm"><label><span data-i18n="form_name">Nom complet</span><input type="text" name="name" required></label><label><span data-i18n="form_email">Adresse e-mail</span><input type="email" name="email" required></label><label><span data-i18n="form_message">Votre message</span><textarea name="message" rows="4" required></textarea></label><button class="button button-light" type="submit" data-i18n="form_send">Préparer le message</button><p class="form-status" id="formStatus" role="status" aria-live="polite"></p></form></div>
         </section>
     </main>
 
-    <footer>
-        <p data-i18n="footer_texte">© 2026 Anbid Salifou</p>
-    </footer>
+    <footer class="site-footer"><span>© 2026 Anbid Salifou</span><span data-i18n="footer_note">Portfolio personnel · conçu avec intention</span><a href="#home" data-i18n="footer_top">Retour en haut ↑</a></footer>
 
-    <button class="btn btn-ghost back-to-top" id="backToTop" aria-label="Haut de page" data-i18n-title="haut_de_page" title="Haut de page">↑</button>
+    <button class="back-to-top" id="back-to-top" aria-label="Retour en haut">↑</button>
+    <button class="assistant-toggle" id="assistant-toggle" aria-label="Ouvrir l'assistant FAQ">?</button>
+    <aside class="assistant" id="assistant" aria-label="Assistant FAQ"><div class="assistant-header"><strong data-i18n="assistant_title">À propos d'Anbid</strong><button id="assistant-close" aria-label="Fermer">×</button></div><div class="assistant-messages" id="assistant-messages"><p class="assistant-msg bot" data-i18n="assistant_welcome">Je peux répondre rapidement sur le parcours, les compétences, les projets ou le contact.</p></div><div class="assistant-suggestions" id="assistant-suggestions"></div><div class="assistant-input"><input id="assistant-input" type="text" data-i18n-placeholder="assistant_placeholder" placeholder="Posez une question…"><button id="assistant-send" aria-label="Envoyer">↗</button></div></aside>
     <script src="script.js"></script>
 </body>
 </html>
