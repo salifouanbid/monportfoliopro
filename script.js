@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         $$('[data-i18n-placeholder]').forEach((element) => { element.placeholder = translations[language][element.dataset.i18nPlaceholder]; });
         updateThemeLabel();
-        renderSuggestions();
+        setTimeout(() => renderSuggestions(), 0);
         if (animate) startTyping(); else { titleEl.textContent = translations[language].hero_title; textEl.textContent = translations[language].hero_text; }
     }
 
@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const run = ++typingRun;
         const title = translations[language].hero_title;
         const text = translations[language].hero_text;
-        const typeDelay = 110;
-        const deleteDelay = 55;
+        const typeDelay = 1000;
+        const deleteDelay = 1000;
         const holdDelay = 1800;
         titleEl.textContent = '';
         textEl.textContent = '';
