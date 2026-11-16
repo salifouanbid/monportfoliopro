@@ -11,6 +11,8 @@ La version actuelle privilégie une direction éditoriale sobre et durable : typ
 - Effet machine à écrire discret dans le hero
 - Parcours académique, compétences et projets avec liens GitHub vérifiés
 - Aperçus visuels des projets sans photo personnelle
+- Diaporamas automatiques des projets (rotation toutes les 5 secondes), notamment les 7 captures du Cahier de vacances
+- Snake en C présenté avec un visuel dédié
 - Téléchargement du CV PDF
 - Formulaire de contact qui prépare un e-mail dans le client de messagerie
 - Assistant FAQ local, sans API ni collecte de données
