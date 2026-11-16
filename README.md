@@ -45,3 +45,7 @@ Le bloc `.portrait-slot` dans `index.html` est la zone réservée. Pour ajouter 
 
 Le dépôt est publié depuis la branche `main` avec GitHub Pages :
 <https://salifouanbid.github.io/monportfoliopro/>
+
+## Documents
+
+Le dépôt contient le CV complémentaire avec des liens cliquables vers les projets principaux, ainsi que l’attestation **NASA Space Apps Challenge — Galactic Problem Solver**.
