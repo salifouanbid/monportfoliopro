@@ -43,12 +43,41 @@ document.addEventListener('DOMContentLoaded', () => {
         const run = ++typingRun;
         const title = translations[language].hero_title;
         const text = translations[language].hero_text;
-        titleEl.textContent = ''; textEl.textContent = '';
+        const typeDelay = 110;
+        const deleteDelay = 55;
+        const holdDelay = 1800;
+        titleEl.textContent = '';
+        textEl.textContent = '';
         let i = 0;
-        const typeTitle = () => { if (run !== typingRun) return; titleEl.textContent = title.slice(0, ++i); if (i < title.length) setTimeout(typeTitle, 62); else setTimeout(typeText, 200); };
         let j = 0;
-        const typeText = () => { if (run !== typingRun) return; textEl.textContent = text.slice(0, ++j); if (j < text.length) setTimeout(typeText, 20); };
-        setTimeout(typeTitle, 180);
+
+        const typeTitle = () => {
+            if (run !== typingRun) return;
+            titleEl.textContent = title.slice(0, ++i);
+            if (i < title.length) setTimeout(typeTitle, typeDelay);
+            else setTimeout(typeText, 420);
+        };
+        const typeText = () => {
+            if (run !== typingRun) return;
+            textEl.textContent = text.slice(0, ++j);
+            if (j < text.length) setTimeout(typeText, typeDelay);
+            else setTimeout(eraseText, holdDelay);
+        };
+        const eraseText = () => {
+            if (run !== typingRun) return;
+            if (j > 0) {
+                textEl.textContent = text.slice(0, --j);
+                setTimeout(eraseText, deleteDelay);
+            } else setTimeout(eraseTitle, 320);
+        };
+        const eraseTitle = () => {
+            if (run !== typingRun) return;
+            if (i > 0) {
+                titleEl.textContent = title.slice(0, --i);
+                setTimeout(eraseTitle, deleteDelay);
+            } else setTimeout(typeTitle, 650);
+        };
+        setTimeout(typeTitle, 260);
     }
 
     function updateThemeLabel() { themeToggle.textContent = translations[language][document.body.classList.contains('dark') ? 'theme_light' : 'theme_dark']; }
